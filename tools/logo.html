@@ -3,23 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <!--
-  Source for assets/logo-light.png and assets/logo-dark.png.
+  Source for assets/logo.png and assets/logo-avatar.png.
 
-  Two variants are needed because the background is transparent: the "JD"
-  is dark ink on a light page and cream on a dark one, or it would vanish
-  into whichever background it lands on. The README picks between them with
-  a <picture> element. The yellow mark carries its own background, so it is
-  identical in both.
+  The "JD" is cream with a heavy dark outline painted behind the glyphs, so a
+  single transparent file stays legible on any background: the outline gives
+  it presence on white, and on a dark ground the outline disappears into it
+  and the letters simply read as cream.
+
+  The stroke weight matters. Too thin and the letters go hollow on white,
+  reading as a weak outline rather than a wordmark. 0.21em is where it holds
+  on both.
 
   Regenerate after editing:
 
     CHROME="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
-    for v in light dark; do
-      "$CHROME" --headless --disable-gpu --hide-scrollbars \
-        --screenshot=assets/logo-$v.png --window-size=880,260 \
-        --default-background-color=00000000 --virtual-time-budget=6000 \
-        "file://$PWD/tools/logo.html?variant=$v"
-    done
+    "$CHROME" --headless --disable-gpu --hide-scrollbars \
+      --screenshot=assets/logo.png --window-size=880,260 \
+      --default-background-color=00000000 --virtual-time-budget=6000 \
+      "file://$PWD/tools/logo.html"
+    "$CHROME" --headless --disable-gpu --hide-scrollbars \
+      --screenshot=assets/logo-avatar.png --window-size=800,800 \
+      --default-background-color=0E141B --virtual-time-budget=6000 \
+      "file://$PWD/tools/logo.html?variant=avatar"
 
   Rendered at 2x and displayed at 330px, so it stays crisp on retina.
 -->
@@ -41,23 +46,12 @@
     gap:6px;
     font-size:104px;
     letter-spacing:-0.02em;
-    /* Overridden per variant below. */
-    color:#0E141B;
-  }
-  body[data-variant="dark"] .logo{color:#F3F1EA;}
-  /* Square avatar for profile pictures, where the background is ours to set
-     and the crop is a circle or a square rather than a wide strip. */
-  body[data-variant="avatar"]{
-    width:800px; height:800px;
-    background:#0E141B;
-  }
-  body[data-variant="avatar"] .logo{
-    flex-direction:column;
-    gap:0;
     color:#F3F1EA;
-    font-size:150px;
   }
-  body[data-variant="avatar"] .mark{margin:0 0 6px; padding:4px 30px 12px;}
+  .jd{
+    -webkit-text-stroke:0.21em #0E141B;
+    paint-order:stroke fill;
+  }
   .mark{
     background:#FFD400;
     color:#0E141B;
@@ -67,15 +61,20 @@
     display:inline-block;
     margin-right:10px;
   }
+
+  /* Square profile picture, where the background is ours to set and the crop
+     is a circle or a square rather than a wide strip. */
+  body[data-variant="avatar"]{width:800px; height:800px; background:#0E141B;}
+  body[data-variant="avatar"] .logo{flex-direction:column; gap:0; font-size:150px;}
+  body[data-variant="avatar"] .mark{margin:0 0 6px; padding:4px 30px 12px;}
 </style>
 </head>
 <body>
   <div class="logo"><span class="mark">Clear</span><span class="jd">JD</span></div>
   <script>
-    // ?variant=dark for dark backgrounds, ?variant=avatar for a square
-    // profile picture. Default is the light-background version.
-    const variant = new URL(location.href).searchParams.get('variant') || 'light';
-    document.body.dataset.variant = variant;
+    // ?variant=avatar renders the square profile picture.
+    const variant = new URL(location.href).searchParams.get('variant');
+    if(variant) document.body.dataset.variant = variant;
   </script>
 </body>
 </html>
