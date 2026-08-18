@@ -13,12 +13,21 @@ jobs:
     name: Lint and test
     runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v4
+    strategy:
+      fail-fast: false
+      matrix:
+        # The two Node versions still in support. Testing both is what makes
+        # the "Node 22 or newer" line in CONTRIBUTING.md a fact rather than a
+        # hope. Node 20 is deliberately absent: it went end-of-life in
+        # April 2026.
+        node: ['22', '24']
 
-      - uses: actions/setup-node@v4
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
         with:
-          node-version: '20'
+          node-version: ${{ matrix.node }}
 
       # There is nothing to install. The project has no dependencies, and the
       # checks use only what Node ships with.

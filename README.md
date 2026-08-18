@@ -123,7 +123,7 @@ fields. History and the rules for bumping are in
 
 ### Running it locally
 
-No build step, no dependencies. Node 20+ is only needed for the tests.
+No build step, no dependencies. Node 22+ is only needed for the tests.
 
 ```bash
 npm test           # lint and the test suite

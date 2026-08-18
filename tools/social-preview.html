@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<!--
+  Source for assets/social-preview.png (GitHub social preview, og:image).
+
+  Regenerate after editing:
+
+    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+      --headless --disable-gpu --hide-scrollbars \
+      --screenshot=assets/social-preview.png --window-size=1280,640 \
+      --default-background-color=0E141B --virtual-time-budget=6000 \
+      file://$PWD/tools/social-preview.html
+
+  1280x640 is GitHub's social preview size and the ratio LinkedIn, Slack and
+  X crop to, so keep anything important away from the edges.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* 1280x640 is GitHub's social preview size and also the ratio LinkedIn,
+     Slack and X crop to, so nothing important goes near the edges. */
+  *{box-sizing:border-box; margin:0;}
+  html,body{width:1280px; height:640px; overflow:hidden;}
+  body{
+    background:#0E141B;
+    color:#F3F1EA;
+    font-family:'Inter', sans-serif;
+    display:grid;
+    grid-template-columns:1fr 470px;
+    align-items:center;
+    gap:56px;
+    padding:56px 68px 136px;
+  }
+
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:15px;
+    text-transform:uppercase;
+    letter-spacing:0.18em;
+    color:#33D6B8;
+    margin-bottom:26px;
+  }
+  h1{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:700;
+    font-size:62px;
+    line-height:1.08;
+    letter-spacing:-0.025em;
+    margin-bottom:26px;
+  }
+  h1 .hl{
+    background:#FFD400;
+    color:#0E141B;
+    padding:0.02em 0.14em;
+    border-radius:4px;
+    box-decoration-break:clone;
+    -webkit-box-decoration-break:clone;
+  }
+  .sub{font-size:21px; color:#8F9AAA; line-height:1.45; max-width:30ch;}
+
+  .brand{
+    position:absolute;
+    left:68px; bottom:52px;
+    display:flex; align-items:center; gap:14px;
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:700; font-size:25px;
+  }
+  .brand .mark{
+    background:#FFD400; color:#0E141B;
+    padding:1px 9px; border-radius:4px;
+    transform:rotate(-2deg); display:inline-block;
+    margin-right:4px;
+  }
+  .brand .url{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:15px; font-weight:400; color:#5B6472;
+    letter-spacing:0.02em;
+  }
+
+  /* A miniature of the real output, so the image shows the actual product. */
+  .card{
+    background:#161E27;
+    border:1px solid rgba(243,241,234,0.10);
+    border-radius:14px;
+    padding:26px 28px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:14px;
+    line-height:1.85;
+  }
+  .card h2{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:23px; font-weight:700; margin-bottom:14px;
+  }
+  .card h3{
+    font-size:12px; text-transform:uppercase; letter-spacing:0.12em;
+    color:#33D6B8; font-weight:500;
+    border-top:1px solid rgba(243,241,234,0.10);
+    padding-top:14px; margin-bottom:10px;
+  }
+  .kv{margin-bottom:7px; white-space:nowrap; overflow:hidden;}
+  .k{color:#8F9AAA;}
+  .v{background:rgba(255,212,0,0.16); padding:1px 5px; border-radius:3px;}
+</style>
+</head>
+<body>
+
+  <div>
+    <p class="eyebrow">Open-source job description standard</p>
+    <h1><span class="hl">Stop hiding</span><br>what candidates<br>need to know.</h1>
+    <p class="sub">Interview stages, salary, contract type and reply times. First, not buried.</p>
+  </div>
+
+  <div class="card">
+    <h2>Data Engineer</h2>
+    <h3>Essentials</h3>
+    <div class="kv"><span class="k">Stages:</span> <span class="v">3</span></div>
+    <div class="kv"><span class="k">Feedback:</span> <span class="v">5 working days</span></div>
+    <div class="kv"><span class="k">Mode:</span> <span class="v">Hybrid, 2 days/week</span></div>
+    <div class="kv"><span class="k">Contract:</span> <span class="v">Permanent</span></div>
+    <div class="kv"><span class="k">Salary:</span> <span class="v">32&ndash;42k EUR/year</span></div>
+  </div>
+
+  <div class="brand">
+    <span><span class="mark">Clear</span>JD</span>
+    <span class="url">bonamim.github.io/clearjd</span>
+  </div>
+
+</body>
+</html>

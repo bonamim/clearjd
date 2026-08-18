@@ -59,7 +59,7 @@ authorised to share.
 
 ## Running the checks
 
-Node 20 or newer. There are no dependencies to install.
+Node 22 or newer. There are no dependencies to install.
 
 ```bash
 npm test           # lint and the test suite
