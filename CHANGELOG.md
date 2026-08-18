@@ -33,8 +33,9 @@ The first published version of the standard.
 ### Notes
 
 - The salary range field exists because the EU Pay Transparency Directive
-  (2023/970) requires pay information in job ads from June 2026, and because
-  it is the single most common reason candidates skip a post.
+  (2023/970) gives applicants the right to the starting pay or its range
+  before the interview, with a transposition deadline of 7 June 2026, and
+  because it is the single most common reason candidates skip a post.
 - Every field is expected to be answered. A field that does not apply should
   say so explicitly rather than be deleted, so a gap never reads as an
   accidental omission.

@@ -71,11 +71,13 @@ role paid by the hour, are in [`examples/`](./examples/).
 conversation drop out before you interview them. The ones who stay have
 already accepted your terms.
 
-**It is becoming the law.** The EU Pay Transparency Directive
-([2023/970](https://eur-lex.europa.eu/eli/dir/2023/970/oj)) requires pay
-information in job advertisements. Member states must apply it from
-**June 2026**. Posts without a salary range are on the wrong side of that
-date.
+**The law is arriving.** The EU Pay Transparency Directive
+([2023/970](https://eur-lex.europa.eu/eli/dir/2023/970/oj)) gives applicants
+the right to know the starting pay or its range before the interview, and
+stops employers asking about salary history. Member states had to transpose
+it by **7 June 2026**. Most missed that deadline and are legislating now, so
+the exact national rules are still landing. Putting the range in the ad is
+the simplest way to be on the right side of it.
 
 **It is what candidates say they want.** Every survey on the subject puts
 salary and interview process at the top, and "company culture" paragraphs
