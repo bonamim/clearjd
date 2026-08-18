@@ -45,6 +45,19 @@
     color:#0E141B;
   }
   body[data-variant="dark"] .logo{color:#F3F1EA;}
+  /* Square avatar for profile pictures, where the background is ours to set
+     and the crop is a circle or a square rather than a wide strip. */
+  body[data-variant="avatar"]{
+    width:800px; height:800px;
+    background:#0E141B;
+  }
+  body[data-variant="avatar"] .logo{
+    flex-direction:column;
+    gap:0;
+    color:#F3F1EA;
+    font-size:150px;
+  }
+  body[data-variant="avatar"] .mark{margin:0 0 6px; padding:4px 30px 12px;}
   .mark{
     background:#FFD400;
     color:#0E141B;
@@ -57,9 +70,10 @@
 </style>
 </head>
 <body>
-  <div class="logo"><span class="mark">Clear</span>JD</div>
+  <div class="logo"><span class="mark">Clear</span><span class="jd">JD</span></div>
   <script>
-    // ?variant=dark renders the version for dark backgrounds.
+    // ?variant=dark for dark backgrounds, ?variant=avatar for a square
+    // profile picture. Default is the light-background version.
     const variant = new URL(location.href).searchParams.get('variant') || 'light';
     document.body.dataset.variant = variant;
   </script>
