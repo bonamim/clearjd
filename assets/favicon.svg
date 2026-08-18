@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="ClearJD">
+  <!--
+    The brand's most distinctive element is the rotated yellow marker behind
+    "Clear". Letters are unreadable at 16px, so the favicon keeps the marker
+    shape alone: a yellow slab on the dark ground, recognisable at tab size.
+  -->
+  <rect width="64" height="64" rx="13" fill="#0E141B"/>
+  <rect x="10" y="22" width="44" height="21" rx="5" fill="#FFD400"
+        transform="rotate(-6 32 32)"/>
+</svg>

@@ -24,6 +24,11 @@ exercise (60min), 3. Team fit (45min)]
 **Technical assessment:** [None / Live coding / Take-home / Both]. [If there is
 one, how long it takes: "Take-home (3 hours)"]
 
+**Feedback:** [When you reply after each stage, and when a final yes or no
+arrives. Example: "You hear back within 5 working days of each stage. Final
+decision within 10 working days of the last stage." This is the question
+candidates complain about most, and a number costs you nothing.]
+
 **Work mode:** [100% remote / Hybrid / On-site]. [If hybrid, the minimum time
 on site, with its unit: "Minimum on site: 2 days per week"]
 

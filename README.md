@@ -153,8 +153,15 @@ assets/
   examples.js         the worked examples, as data
   version.js          the version of the standard
   app.js              the generator
+  *.png, favicon.svg  generated from the HTML sources in tools/
 examples/             generated from assets/examples.js, do not edit by hand
-tools/                lint, test harness, example generator, dev server
+tools/
+  lint.js             the dependency-free checks
+  harness.js          loads the app into a stub DOM, for tests and tooling
+  generate-examples.js  rewrites examples/ from assets/examples.js
+  serve.js            local server, needed to test the clipboard over HTTPS
+  logo.html           source for the logo and the avatar
+  social-preview.html   source for the og:image
 tests/                run with `npm test`, no dependencies
 ```
 

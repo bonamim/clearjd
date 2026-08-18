@@ -7,6 +7,10 @@
 <meta name="description" content="Build a job description that puts interview stages, work mode, contract type and salary range first. Free, open source, nothing sent anywhere.">
 <meta name="theme-color" content="#0E141B">
 
+<!-- SVG scales to any tab size; iOS ignores it and uses the PNG. -->
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+
 <!-- Link previews for LinkedIn, Slack and X. The image is generated from
      tools/social-preview.html; see the comment in that file to regenerate. -->
 <meta property="og:type" content="website">
@@ -68,16 +72,16 @@
         </div>
 
         <div class="field" id="f_stage_list_wrap" hidden>
-          <span class="group-label" data-i18n="l_stages">What happens at each stage</span>
-          <span class="hint" data-i18n="hint_stages">A candidate is deciding whether to spend their evenings on this. Tell them what they are signing up for.</span>
+          <span class="group-label" id="lbl_stages" data-i18n="l_stages">What happens at each stage</span>
+          <span class="hint" id="hintStages" data-i18n="hint_stages">A candidate is deciding whether to spend their evenings on this. Tell them what they are signing up for.</span>
           <!-- One row per stage, rebuilt whenever the count changes. -->
-          <div class="stage-list" id="stageList"></div>
+          <div class="stage-list" id="stageList" role="group" aria-labelledby="lbl_stages" aria-describedby="hintStages"></div>
         </div>
 
         <div class="field">
           <span class="group-label" id="lbl_test" data-i18n="l_test">Technical assessment</span>
-          <span class="hint" data-i18n="hint_test">Live coding is done with you in a call. Take-home is unpaid work in their own time, so say how long it really takes.</span>
-          <div class="radio-row" id="f_test" role="group" aria-labelledby="lbl_test">
+          <span class="hint" id="hintTest" data-i18n="hint_test">Live coding is done with you in a call. Take-home is unpaid work in their own time, so say how long it really takes.</span>
+          <div class="radio-row" id="f_test" role="group" aria-labelledby="lbl_test" aria-describedby="hintTest">
             <button type="button" data-val="none" aria-pressed="true"  data-i18n="opt_test_none">None</button>
             <button type="button" data-val="live" aria-pressed="false" data-i18n="opt_test_live">Live coding</button>
             <button type="button" data-val="home" aria-pressed="false" data-i18n="opt_test_home">Take-home</button>
@@ -99,12 +103,12 @@
 
         <h2 class="section-label" data-i18n="s_feedback">Feedback</h2>
 
-        <p class="hint standalone" data-i18n="hint_feedback">Being left in silence is the most common complaint candidates have. Committing to a number here costs you nothing and is remembered.</p>
+        <p class="hint standalone" id="hintFeedback" data-i18n="hint_feedback">Being left in silence is the most common complaint candidates have. Committing to a number here costs you nothing and is remembered.</p>
 
         <div class="field">
           <label for="f_feedback_days" data-i18n="l_feedback">You reply after each stage within</label>
           <div class="inline-pair">
-            <input type="number" id="f_feedback_days" min="0" max="120" step="1" placeholder="5">
+            <input type="number" id="f_feedback_days" min="0" max="120" step="1" placeholder="5" aria-describedby="hintFeedback">
             <span class="unit-suffix" data-i18n="workday_many">working days</span>
           </div>
         </div>
@@ -112,7 +116,7 @@
         <div class="field">
           <label for="f_decision_days" data-i18n="l_decision">Final yes or no after the last stage within</label>
           <div class="inline-pair">
-            <input type="number" id="f_decision_days" min="0" max="120" step="1" placeholder="10">
+            <input type="number" id="f_decision_days" min="0" max="120" step="1" placeholder="10" aria-describedby="hintFeedback">
             <span class="unit-suffix" data-i18n="workday_many">working days</span>
           </div>
         </div>
@@ -158,8 +162,8 @@
 
         <div class="field">
           <span class="group-label" id="lbl_bond" data-i18n="l_bond">Employment relationship</span>
-          <span class="hint" data-i18n="hint_bond">Who signs the contract and pays the salary. Candidates want to know before stage one, not after.</span>
-          <div class="radio-row" id="f_bond" role="group" aria-labelledby="lbl_bond">
+          <span class="hint" id="hintBond" data-i18n="hint_bond">Who signs the contract and pays the salary. Candidates want to know before stage one, not after.</span>
+          <div class="radio-row" id="f_bond" role="group" aria-labelledby="lbl_bond" aria-describedby="hintBond">
             <button type="button" data-val="direct" aria-pressed="true"  data-i18n="opt_direct">Direct with company</button>
             <button type="button" data-val="agency" aria-pressed="false" data-i18n="opt_agency">Via staffing agency</button>
           </div>

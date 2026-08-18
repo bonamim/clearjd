@@ -111,6 +111,32 @@ test('each select is labelled', () => {
   }
 });
 
+test('every on-screen hint is announced, not just shown', () => {
+  const { html } = loadApp();
+
+  // A hint that only exists visually gives sighted users guidance that screen
+  // reader users never hear.
+  // Validation messages are excluded: they carry role="alert", which is
+  // announced when they appear, and the field they belong to gets
+  // aria-invalid. That is the right pattern for an error, not describedby.
+  const hints = [...html.matchAll(/<(?:span|p) class="(hint[^"]*)"([^>]*)>/g)]
+    .filter(m => !m[1].split(/\s+/).includes('warn'))
+    .map(m => m[2]);
+
+  const described = new Set(
+    [...html.matchAll(/aria-describedby="([^"]+)"/g)].flatMap(m => m[1].split(/\s+/))
+  );
+
+  for(const attrs of hints){
+    const id = (attrs.match(/id="([^"]+)"/) || [])[1];
+    assert.ok(id, `a hint has no id, so nothing can reference it: <span class="hint"${attrs}>`);
+    assert.ok(
+      described.has(id),
+      `hint #${id} is shown but no control references it with aria-describedby`
+    );
+  }
+});
+
 test('no translation is left as a copy of the English source', () => {
   const { I18N } = loadApp();
 
@@ -183,6 +209,30 @@ test('every link points at the real repository', () => {
     for(const [url] of source.matchAll(/https:\/\/[a-z0-9.-]*github\.(?:com|io)[^\s"')\]]*/gi)){
       assert.ok(url.startsWith(pages), `examples/${file} links to ${url}, not ${pages}`);
     }
+  }
+});
+
+test('TEMPLATE.md documents every field the generator emits', () => {
+  const { I18N } = loadApp();
+  const template = read('TEMPLATE.md');
+
+  // Someone filling the template by hand and someone using the generator must
+  // end up with the same document. If a field is added to one and not the
+  // other, the standard quietly forks in two.
+  const fields = ['doc_stages', 'doc_test', 'doc_feedback', 'doc_mode', 'doc_tz',
+                  'doc_contract', 'doc_bond', 'doc_salary', 'doc_benefits'];
+
+  for(const key of fields){
+    const label = I18N.en[key];
+    assert.ok(
+      template.includes(`**${label}**`),
+      `TEMPLATE.md is missing "${label}", which the generator emits. ` +
+      `The hand-written template and the tool would produce different documents.`
+    );
+  }
+
+  for(const heading of [I18N.en.doc_stack, I18N.en.doc_expect]){
+    assert.ok(template.includes(`## ${heading}`), `TEMPLATE.md is missing the "${heading}" section`);
   }
 });
 
