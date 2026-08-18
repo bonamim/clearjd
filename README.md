@@ -1,12 +1,12 @@
 <div align="center">
 
-# ClearJD
+<img src="assets/logo.png" alt="ClearJD" width="330">
 
-**Job descriptions that lead with what actually decides whether someone applies.**
+### Job descriptions that lead with what actually decides whether someone applies.
 
 [**→ Open the free generator**](https://bonamim.github.io/clearjd/)
 
-English · Português · Español · No account · Nothing is sent anywhere
+English · Portuguese · Spanish&nbsp;&nbsp;·&nbsp;&nbsp;No account&nbsp;&nbsp;·&nbsp;&nbsp;Nothing is sent anywhere
 
 </div>
 

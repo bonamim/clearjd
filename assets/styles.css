@@ -196,7 +196,27 @@ h1 .hl{
   transition:border-color .15s ease, background .15s ease;
 }
 .example-chip:hover{border-color:var(--accent); background:var(--surface-2);}
-.example-label{font-size:14px; font-weight:600; color:var(--text);}
+.example-label{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:14px;
+  font-weight:600;
+  color:var(--text);
+}
+/* Loading an example switches the interface to the language it was written
+   in, so say which that is before it happens. */
+.example-lang{
+  font-family:var(--mono);
+  font-size:10px;
+  font-weight:500;
+  text-transform:uppercase;
+  letter-spacing:0.08em;
+  color:var(--text-dim);
+  border:1px solid var(--border);
+  border-radius:3px;
+  padding:1px 5px;
+}
 .example-note{font-size:12px; color:var(--text-dim);}
 
 

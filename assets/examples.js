@@ -74,13 +74,13 @@ const EXAMPLES = [
   },
 
   {
-    id:'analista-de-dados-freelancer-brasil',
+    id:'data-analyst-freelance-brazil',
     stages:[
       { what:'Conversa sobre o âmbito do projecto', minutes:'30' },
       { what:'Sessão técnica com live coding em SQL', minutes:'60' },
     ],
-    label:'Analista de Dados, Brasil',
-    note:'Remoto, freelancer, pagamento à hora',
+    label:'Data Analyst, Brazil',
+    note:'Remote, freelance, paid by the hour',
     lang:'pt',
     state:{ test:'live', testUnit:'hours', mode:'remote', bond:'direct', period:'hour' },
     fields:{

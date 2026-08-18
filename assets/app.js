@@ -505,7 +505,10 @@ $('btnDownload').addEventListener('click', ()=>{
    assets/examples.js is enough to make it appear on the page. */
 $('exampleRow').innerHTML = EXAMPLES.map(e=>`
   <button type="button" class="example-chip" data-example="${escapeHtml(e.id)}">
-    <span class="example-label">${escapeHtml(e.label)}</span>
+    <span class="example-label">
+      ${escapeHtml(e.label)}
+      <span class="example-lang">${escapeHtml(e.lang)}</span>
+    </span>
     <span class="example-note">${escapeHtml(e.note)}</span>
   </button>`).join('');
 
