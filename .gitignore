@@ -1,0 +1,59 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+.directory
+.Trash-*
+
+# AI and editor assistants
+.claude/
+.cursor/
+.cursorrules
+.aider*
+.windsurf/
+.continue/
+.github/copilot-instructions.md
+
+# Editors and IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.settings/
+*.sublime-workspace
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.npm/
+# package-lock.json is committed when there are dependencies. There are none.
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# Build and scratch output
+dist/
+build/
+tmp/
+*.log
+
+# Personal launch checklist and machine notes. Local only, deliberately not
+# published: it records SSH key paths and account details that are nobody
+# else's business.
+TODO.md

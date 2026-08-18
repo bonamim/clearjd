@@ -1,0 +1,36 @@
+#!/bin/sh
+# Runs lint and tests before each commit.
+#
+# This hook is opt-in. Enable it with:
+#
+#   npm run hooks
+#
+# It is a convenience, not the gate. CI runs the same checks on every pull
+# request and that is what actually blocks a merge, so a contributor who
+# never enables this loses nothing but a faster feedback loop.
+#
+# Skip it once with:  git commit --no-verify
+
+set -e
+
+if ! command -v node >/dev/null 2>&1; then
+  echo "pre-commit: node not found, skipping checks"
+  exit 0
+fi
+
+echo "pre-commit: running lint and tests..."
+
+node tools/lint.js
+node --test tests/*.test.js >/dev/null
+
+# The files in examples/ are generated. Committing a stale one makes the repo
+# disagree with the generator, which CI would then reject.
+node tools/generate-examples.js >/dev/null
+if ! git diff --quiet -- examples/; then
+  echo ""
+  echo "pre-commit: examples/ was out of date and has been regenerated."
+  echo "            Review the changes and 'git add examples/' before committing."
+  exit 1
+fi
+
+echo "pre-commit: all good"

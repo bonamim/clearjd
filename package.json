@@ -1,0 +1,26 @@
+{
+  "name": "clearjd",
+  "version": "1.0.0",
+  "description": "An open template for job descriptions that lead with what actually decides whether someone applies.",
+  "license": "MIT",
+  "private": true,
+  "homepage": "https://bonamim.github.io/clearjd/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bonamim/clearjd.git"
+  },
+  "keywords": [
+    "job-description",
+    "hiring",
+    "recruiting",
+    "pay-transparency",
+    "open-standard"
+  ],
+  "scripts": {
+    "test": "node tools/lint.js && node --test tests/*.test.js",
+    "lint": "node tools/lint.js",
+    "examples": "node tools/generate-examples.js",
+    "start": "node tools/serve.js",
+    "hooks": "git config core.hooksPath .githooks && echo 'Git hooks enabled: npm test will run before each commit.'"
+  }
+}

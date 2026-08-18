@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ClearJD: job descriptions that lead with what matters</title>
+<meta name="description" content="Build a job description that puts interview stages, work mode, contract type and salary range first. Free, open source, nothing sent anywhere.">
+<meta name="theme-color" content="#0E141B">
+
+<!-- Link previews for LinkedIn, Slack and X. TODO: add og:image once a social preview exists. -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://bonamim.github.io/clearjd/">
+<meta property="og:title" content="ClearJD: job descriptions that lead with what matters">
+<meta property="og:description" content="Fill in the essentials (interview stages, work mode, contract type, salary range) and get a clean job description in seconds. Free, open source, no backend.">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<div class="wrap">
+
+  <header>
+    <div class="logo"><span class="mark">Clear</span>JD</div>
+    <div class="lang-toggle" id="langToggle" role="group" aria-label="Language">
+      <button type="button" data-lang="en" aria-pressed="true">EN</button>
+      <button type="button" data-lang="pt" aria-pressed="false">PT</button>
+      <button type="button" data-lang="es" aria-pressed="false">ES</button>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="hero">
+      <p class="eyebrow" data-i18n="eyebrow">OPEN-SOURCE JOB DESCRIPTION STANDARD</p>
+      <h1 data-i18n="h1"><span class="hl">Stop hiding</span> what candidates actually need to know.</h1>
+      <p class="sub" data-i18n="sub">Fill in the essentials and get a clean job description in seconds. No account, nothing sent anywhere.</p>
+
+      <div class="examples">
+        <p class="examples-hint" data-i18n="examples_hint">Or start from a worked example:</p>
+        <div class="example-row" id="exampleRow"></div>
+      </div>
+    </section>
+
+    <section class="builder">
+
+      <!-- ---------------------------------------------------------- form -->
+      <div class="col col-form">
+
+        <div class="field">
+          <label for="f_title" data-i18n="l_title">Job title</label>
+          <input type="text" id="f_title" placeholder="Data Engineer (Snowflake)">
+        </div>
+
+        <h2 class="section-label" data-i18n="s_essentials">Essentials</h2>
+
+        <div class="field">
+          <label for="f_stages_count" data-i18n="l_stages_count">How many interview stages?</label>
+          <input type="number" id="f_stages_count" min="0" max="12" step="1" placeholder="3" class="narrow">
+        </div>
+
+        <div class="field" id="f_stage_list_wrap" hidden>
+          <span class="group-label" data-i18n="l_stages">What happens at each stage</span>
+          <span class="hint" data-i18n="hint_stages">A candidate is deciding whether to spend their evenings on this. Tell them what they are signing up for.</span>
+          <!-- One row per stage, rebuilt whenever the count changes. -->
+          <div class="stage-list" id="stageList"></div>
+        </div>
+
+        <div class="field">
+          <span class="group-label" id="lbl_test" data-i18n="l_test">Technical assessment</span>
+          <span class="hint" data-i18n="hint_test">Live coding is done with you in a call. Take-home is unpaid work in their own time, so say how long it really takes.</span>
+          <div class="radio-row" id="f_test" role="group" aria-labelledby="lbl_test">
+            <button type="button" data-val="none" aria-pressed="true"  data-i18n="opt_test_none">None</button>
+            <button type="button" data-val="live" aria-pressed="false" data-i18n="opt_test_live">Live coding</button>
+            <button type="button" data-val="home" aria-pressed="false" data-i18n="opt_test_home">Take-home</button>
+            <button type="button" data-val="both" aria-pressed="false" data-i18n="opt_test_both">Both</button>
+          </div>
+        </div>
+
+        <div class="field" id="f_test_time_wrap" hidden>
+          <label for="f_test_time" data-i18n="l_test_time">Estimated time</label>
+          <div class="inline-pair">
+            <input type="number" id="f_test_time" min="0" step="any" placeholder="3">
+            <div class="radio-row" id="f_test_unit" role="group" aria-labelledby="lbl_test_time_unit">
+              <span class="sr-only" id="lbl_test_time_unit">Unit</span>
+              <button type="button" data-val="hours" aria-pressed="true"  data-i18n="opt_hours">hours</button>
+              <button type="button" data-val="days"  aria-pressed="false" data-i18n="opt_days">days</button>
+            </div>
+          </div>
+        </div>
+
+        <h2 class="section-label" data-i18n="s_feedback">Feedback</h2>
+
+        <p class="hint standalone" data-i18n="hint_feedback">Being left in silence is the most common complaint candidates have. Committing to a number here costs you nothing and is remembered.</p>
+
+        <div class="field">
+          <label for="f_feedback_days" data-i18n="l_feedback">You reply after each stage within</label>
+          <div class="inline-pair">
+            <input type="number" id="f_feedback_days" min="0" max="120" step="1" placeholder="5">
+            <span class="unit-suffix" data-i18n="workday_many">working days</span>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="f_decision_days" data-i18n="l_decision">Final yes or no after the last stage within</label>
+          <div class="inline-pair">
+            <input type="number" id="f_decision_days" min="0" max="120" step="1" placeholder="10">
+            <span class="unit-suffix" data-i18n="workday_many">working days</span>
+          </div>
+        </div>
+
+        <h2 class="section-label" data-i18n="s_conditions">Conditions</h2>
+
+        <div class="field">
+          <span class="group-label" id="lbl_mode" data-i18n="l_mode">Work mode</span>
+          <div class="radio-row" id="f_mode" role="group" aria-labelledby="lbl_mode">
+            <button type="button" data-val="remote" aria-pressed="true"  data-i18n="opt_remote">100% remote</button>
+            <button type="button" data-val="hybrid" aria-pressed="false" data-i18n="opt_hybrid">Hybrid</button>
+            <button type="button" data-val="onsite" aria-pressed="false" data-i18n="opt_onsite">On-site</button>
+          </div>
+        </div>
+
+        <div class="field" id="f_days_wrap" hidden>
+          <label for="f_days" data-i18n="l_days">Minimum time on site</label>
+          <div class="inline-pair">
+            <input type="number" id="f_days" min="0" max="31" step="1" placeholder="2">
+            <div class="radio-row" id="f_days_unit" role="group" aria-labelledby="lbl_days_unit">
+              <span class="sr-only" id="lbl_days_unit">Unit</span>
+              <button type="button" data-val="week"  aria-pressed="true"  data-i18n="opt_per_week">per week</button>
+              <button type="button" data-val="month" aria-pressed="false" data-i18n="opt_per_month">per month</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="f_tz" data-i18n="l_tz">Required timezone overlap</label>
+          <input type="text" id="f_tz" data-i18n-ph="ph_tz" placeholder="At least 4h overlap with UTC+1">
+        </div>
+
+        <div class="field">
+          <label for="f_contract" data-i18n="l_contract">Contract type</label>
+          <select id="f_contract" aria-describedby="contractHelp"></select>
+          <span class="hint" id="contractHelp"></span>
+        </div>
+
+        <div class="field" id="f_contract_other_wrap" hidden>
+          <label for="f_contract_other" data-i18n="l_contract_other">Describe the contract type</label>
+          <input type="text" id="f_contract_other" data-i18n-ph="ph_contract_other" placeholder="The name used in your country">
+        </div>
+
+        <div class="field">
+          <span class="group-label" id="lbl_bond" data-i18n="l_bond">Employment relationship</span>
+          <span class="hint" data-i18n="hint_bond">Who signs the contract and pays the salary. Candidates want to know before stage one, not after.</span>
+          <div class="radio-row" id="f_bond" role="group" aria-labelledby="lbl_bond">
+            <button type="button" data-val="direct" aria-pressed="true"  data-i18n="opt_direct">Direct with company</button>
+            <button type="button" data-val="agency" aria-pressed="false" data-i18n="opt_agency">Via staffing agency</button>
+          </div>
+        </div>
+
+        <div class="field" id="f_client_wrap" hidden>
+          <label for="f_client" data-i18n="l_client">End client</label>
+          <input type="text" id="f_client" data-i18n-ph="ph_client" placeholder="Company name, or 'revealed at stage 2'">
+        </div>
+
+        <div class="field">
+          <div class="row3">
+            <div>
+              <label for="f_min" data-i18n="l_min">Salary min</label>
+              <input type="number" id="f_min" min="0" step="any" placeholder="32000">
+            </div>
+            <div>
+              <label for="f_max" data-i18n="l_max">Salary max</label>
+              <input type="number" id="f_max" min="0" step="any" placeholder="42000">
+            </div>
+            <div>
+              <label for="f_currency" data-i18n="l_currency">Currency</label>
+              <select id="f_currency"></select>
+            </div>
+          </div>
+          <span class="hint warn" id="salaryWarn" role="alert" hidden data-i18n="warn_salary">The minimum is higher than the maximum.</span>
+        </div>
+
+        <div class="field" id="f_currency_other_wrap" hidden>
+          <label for="f_currency_other" data-i18n="l_currency_other">Currency code</label>
+          <input type="text" id="f_currency_other" data-i18n-ph="ph_currency_other" placeholder="ISO code, for example SGD" class="narrow">
+        </div>
+
+        <div class="field">
+          <span class="group-label" id="lbl_period" data-i18n="l_period">Period</span>
+          <div class="radio-row" id="f_period" role="group" aria-labelledby="lbl_period">
+            <button type="button" data-val="year"  aria-pressed="true"  data-i18n="opt_year">per year</button>
+            <button type="button" data-val="month" aria-pressed="false" data-i18n="opt_month">per month</button>
+            <button type="button" data-val="hour"  aria-pressed="false" data-i18n="opt_hour">per hour</button>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="f_benefits" data-i18n="l_benefits">Benefits</label>
+          <textarea id="f_benefits" data-i18n-ph="ph_benefits" placeholder="Health insurance, meal allowance, training budget..."></textarea>
+        </div>
+
+        <h2 class="section-label" data-i18n="s_stack">Tech stack</h2>
+
+        <div class="field">
+          <label for="f_required" data-i18n="l_required">Required</label>
+          <textarea id="f_required" data-i18n-ph="ph_required" placeholder="SQL, Snowflake, dbt"></textarea>
+        </div>
+
+        <div class="field">
+          <label for="f_nice" data-i18n="l_nice">Nice to have</label>
+          <textarea id="f_nice" data-i18n-ph="ph_nice" placeholder="Python, Airflow"></textarea>
+        </div>
+
+        <h2 class="section-label" data-i18n="s_expect">What we expect from you</h2>
+
+        <div class="field">
+          <label for="f_expect" data-i18n="l_expect">One line per point, no fluff</label>
+          <textarea id="f_expect" rows="4" data-i18n-ph="ph_expect" placeholder="Design and maintain reliable data pipelines&#10;Document what you build"></textarea>
+        </div>
+
+      </div>
+
+      <!-- ------------------------------------------------------- preview -->
+      <div class="col col-preview">
+        <div class="preview-card">
+          <p class="preview-title" data-i18n="p_live">Live preview</p>
+          <div class="doc" id="doc" aria-live="polite"></div>
+          <div class="actions">
+            <button type="button" class="btn btn-primary" id="btnCopy" data-i18n="btn_copy">Copy Markdown</button>
+            <button type="button" class="btn btn-ghost" id="btnDownload" data-i18n="btn_download">Download .md</button>
+          </div>
+          <p class="sr-only" id="copyStatus" role="status"></p>
+        </div>
+      </div>
+
+    </section>
+
+    <section class="contribute">
+      <p>
+        <strong data-i18n="contrib_title">This is a community standard.</strong>
+        <span data-i18n="contrib_body">Missing a field that matters in your country, or spotted something that reads badly? Open an issue or send a pull request.</span>
+      </p>
+      <a class="btn btn-ghost" href="https://github.com/bonamim/clearjd/issues/new" data-i18n="contrib_btn">Suggest a change</a>
+    </section>
+
+  </main>
+
+  <footer>
+    <span data-i18n="foot_left">ClearJD is free and open source, built for job posts that lead with what matters.</span>
+    <span>
+      <a href="https://github.com/bonamim/clearjd/blob/main/CHANGELOG.md">
+        <span class="sr-only">ClearJD standard version </span><span id="versionTag">v1.0.0</span>
+      </a>
+      &nbsp;·&nbsp;
+      <a href="https://github.com/bonamim/clearjd" data-i18n="foot_link">View on GitHub →</a>
+    </span>
+  </footer>
+
+</div>
+
+<script src="assets/version.js"></script>
+<script src="assets/i18n.js"></script>
+<script src="assets/examples.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

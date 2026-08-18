@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Lint and test
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # There is nothing to install. The project has no dependencies, and the
+      # checks use only what Node ships with.
+      - name: Lint
+        run: npm run lint
+
+      - name: Test
+        run: node --test tests/*.test.js
+
+      # The files in examples/ are generated from assets/examples.js. This
+      # catches a pull request that edits one by hand, or that changes the
+      # data without regenerating.
+      - name: Check the generated examples are committed
+        run: |
+          npm run examples
+          if ! git diff --quiet -- examples/; then
+            echo "::error::examples/ is out of date. Run 'npm run examples' and commit the result."
+            git diff -- examples/
+            exit 1
+          fi

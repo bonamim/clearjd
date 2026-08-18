@@ -1,0 +1,21 @@
+# Code owners are requested for review automatically, and their approval is
+# required to merge once "Require review from Code Owners" is switched on in
+# branch protection. Setting this file alone does NOT block anything: see
+# the "Who can merge" section of CONTRIBUTING.md for the settings that
+# actually enforce it.
+#
+# Add trusted contributors by appending their @handle to a line below.
+
+# Everything in the repository.
+*                   @bonamim
+
+# The standard itself. Changes here alter what every published post means,
+# so keep this list tighter than the one above.
+/TEMPLATE.md        @bonamim
+/CHANGELOG.md       @bonamim
+/assets/version.js  @bonamim
+/assets/i18n.js     @bonamim
+
+# Governance and automation.
+/.github/           @bonamim
+/CONTRIBUTING.md    @bonamim
