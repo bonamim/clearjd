@@ -186,3 +186,6 @@ the root of the published branch, and it has to stay empty.
 ---
 
 MIT licensed. Use it, change it, publish it, no attribution required.
+
+ClearJD is free and always will be. If it saved you time,
+you can [buy me a coffee](https://buymeacoffee.com/bonamim).

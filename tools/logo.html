@@ -10,9 +10,10 @@
   it presence on white, and on a dark ground the outline disappears into it
   and the letters simply read as cream.
 
-  The stroke weight matters. Too thin and the letters go hollow on white,
-  reading as a weak outline rather than a wordmark. 0.21em is where it holds
-  on both.
+  The stroke weight is a balance. Too thin and the letters go hollow on
+  white, reading as an outline rather than a wordmark; too thick and it looks
+  like a sticker. 0.12em is enough to define the edge without drawing
+  attention to itself.
 
   Regenerate after editing:
 
@@ -49,7 +50,7 @@
     color:#F3F1EA;
   }
   .jd{
-    -webkit-text-stroke:0.21em #0E141B;
+    -webkit-text-stroke:0.12em #0E141B;
     paint-order:stroke fill;
   }
   .mark{
