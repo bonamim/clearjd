@@ -12,6 +12,32 @@ description is stamped with the version it was written against.
 | A field or an option is added | **minor** | They stay valid |
 | Wording, translations, examples, site changes | **patch** | No effect |
 
+## [1.0.1]
+
+A site release. The template is untouched, so a post written against 1.0.0
+is still a valid post.
+
+### Added
+
+- Anonymous visit counting, through Cloudflare Web Analytics. It sets no
+  cookies, stores no IP addresses and does not track anyone between sites.
+
+### Changed
+
+- The privacy line now says your answers never leave your browser, in all
+  three languages, rather than that nothing is sent anywhere. The generator
+  still has no backend and still sends nothing you type; the old wording
+  stopped being literally true the moment a visit counter existed, and a
+  promise that is nearly true is worse than a narrower one that holds.
+
+### Notes
+
+- The beacon reports the page address, the referrer and load timings. It
+  never sees the form, because the form is never submitted anywhere.
+- `tools/lint.js` refused the change on sight: it banned third-party scripts
+  outright. That rule is now a one-host allowlist rather than a ban, so
+  adding a second script is still a decision someone has to make on purpose.
+
 ## [1.0.0]
 
 The first published version of the standard.
@@ -40,4 +66,5 @@ The first published version of the standard.
   say so explicitly rather than be deleted, so a gap never reads as an
   accidental omission.
 
+[1.0.1]: https://github.com/bonamim/clearjd/releases/tag/v1.0.1
 [1.0.0]: https://github.com/bonamim/clearjd/releases/tag/v1.0.0

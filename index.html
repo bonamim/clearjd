@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ClearJD: job descriptions that lead with what matters</title>
-<meta name="description" content="Build a job description that puts interview stages, work mode, contract type and salary range first. Free, open source, nothing sent anywhere.">
+<meta name="description" content="Build a job description that puts interview stages, work mode, contract type and salary range first. Free, open source, your answers never leave your browser.">
 <meta name="theme-color" content="#0E141B">
 
 <!-- SVG scales to any tab size; iOS ignores it and uses the PNG. -->
@@ -46,7 +46,7 @@
     <section class="hero">
       <p class="eyebrow" data-i18n="eyebrow">OPEN-SOURCE JOB DESCRIPTION STANDARD</p>
       <h1 data-i18n="h1"><span class="hl">Stop hiding</span> what candidates actually need to know.</h1>
-      <p class="sub" data-i18n="sub">Fill in the essentials and get a clean job description in seconds. No account, nothing sent anywhere.</p>
+      <p class="sub" data-i18n="sub">Fill in the essentials and get a clean job description in seconds. No account, your answers never leave your browser.</p>
 
       <div class="examples">
         <p class="examples-hint" data-i18n="examples_hint">Or start from a worked example:</p>
@@ -267,6 +267,8 @@
       <a href="https://buymeacoffee.com/bonamim" rel="noopener" data-i18n="foot_coffee">Buy me a coffee</a>
       &nbsp;·&nbsp;
       <a href="https://github.com/bonamim/clearjd" data-i18n="foot_link">View on GitHub →</a>
+      &nbsp;·&nbsp;
+      <span data-i18n="foot_privacy">Anonymous visit counts, no cookies</span>
     </span>
   </footer>
 
@@ -276,5 +278,11 @@
 <script src="assets/i18n.js"></script>
 <script src="assets/examples.js"></script>
 <script src="assets/app.js"></script>
+
+<!-- Cloudflare Web Analytics: anonymous page counts, no cookies, no personal
+     data. Not an SPA, so spa:false; the language toggle does not change the
+     URL and must not register as a navigation. -->
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js"
+        data-cf-beacon='{"token": "05d11e03bc044943a5a16265c2abebd1", "spa": false}'></script>
 </body>
 </html>

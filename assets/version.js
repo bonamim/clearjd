@@ -15,4 +15,4 @@
  */
 'use strict';
 
-const CLEARJD_VERSION = '1.0.0';
+const CLEARJD_VERSION = '1.0.1';

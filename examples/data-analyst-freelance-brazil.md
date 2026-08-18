@@ -37,4 +37,4 @@
 
 ---
 
-*Escrito com o template de vagas [ClearJD](https://bonamim.github.io/clearjd/), v1.0.0.*
+*Escrito com o template de vagas [ClearJD](https://bonamim.github.io/clearjd/), v1.0.1.*

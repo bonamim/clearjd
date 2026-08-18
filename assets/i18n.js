@@ -17,7 +17,7 @@ const I18N = {
     pageTitle:"ClearJD: job descriptions that lead with what matters",
     eyebrow:"OPEN-SOURCE JOB DESCRIPTION STANDARD",
     h1_pre:"Stop hiding", h1_post:"what candidates actually need to know.",
-    sub:"Fill in the essentials and get a clean job description in seconds. No account, nothing sent anywhere.",
+    sub:"Fill in the essentials and get a clean job description in seconds. No account, your answers never leave your browser.",
 
     examples_hint:"Or start from a worked example:",
 
@@ -104,6 +104,7 @@ const I18N = {
     foot_left:"ClearJD is free and open source, built for job posts that lead with what matters.",
     foot_link:"View on GitHub →",
     foot_coffee:"Buy me a coffee",
+    foot_privacy:"Anonymous visit counts, no cookies",
 
     doc_essentials:"Essentials", doc_stack:"Tech stack", doc_expect:"What we expect from you",
     doc_stages:"Interview stages:", doc_test:"Technical assessment:",
@@ -121,7 +122,7 @@ const I18N = {
     pageTitle:"ClearJD: vagas que começam pelo que importa",
     eyebrow:"PADRÃO ABERTO DE DESCRIÇÃO DE VAGAS",
     h1_pre:"Para de esconder", h1_post:"o que os candidatos realmente precisam de saber.",
-    sub:"Preenche os essenciais e recebe uma vaga limpa em segundos. Sem conta, nada é enviado para lado nenhum.",
+    sub:"Preenche os essenciais e recebe uma vaga limpa em segundos. Sem conta, as tuas respostas nunca saem do teu navegador.",
 
     examples_hint:"Ou começa a partir de um exemplo preenchido:",
 
@@ -208,6 +209,7 @@ const I18N = {
     foot_left:"ClearJD é gratuito e open source, feito para vagas que começam pelo que importa.",
     foot_link:"Ver no GitHub →",
     foot_coffee:"Oferece-me um café",
+    foot_privacy:"Contagem anónima de visitas, sem cookies",
 
     doc_essentials:"Essenciais", doc_stack:"Stack tecnológica", doc_expect:"O que esperamos de ti",
     doc_stages:"Fases de entrevista:", doc_test:"Avaliação técnica:",
@@ -225,7 +227,7 @@ const I18N = {
     pageTitle:"ClearJD: vacantes que empiezan por lo que importa",
     eyebrow:"ESTÁNDAR ABIERTO DE DESCRIPCIÓN DE PUESTOS",
     h1_pre:"Deja de esconder", h1_post:"lo que los candidatos realmente necesitan saber.",
-    sub:"Completa lo esencial y obtén una descripción de puesto limpia en segundos. Sin cuenta, nada se envía a ningún sitio.",
+    sub:"Completa lo esencial y obtén una descripción de puesto limpia en segundos. Sin cuenta, tus respuestas nunca salen de tu navegador.",
 
     examples_hint:"O empieza desde un ejemplo completado:",
 
@@ -312,6 +314,7 @@ const I18N = {
     foot_left:"ClearJD es gratuito y de código abierto, hecho para vacantes que empiezan por lo que importa.",
     foot_link:"Ver en GitHub →",
     foot_coffee:"Invítame a un café",
+    foot_privacy:"Recuento anónimo de visitas, sin cookies",
 
     doc_essentials:"Esenciales", doc_stack:"Stack tecnológico", doc_expect:"Qué esperamos de ti",
     doc_stages:"Fases de entrevista:", doc_test:"Prueba técnica:",
