@@ -167,9 +167,9 @@ const I18N = {
     contract_types:[
       { v:"permanent",      label:"Sem termo",             short:"sem data de fim",                  help:"Contrato de trabalho sem data de fim acordada." },
       { v:"fixed",          label:"A termo",               short:"termina numa data acordada",       help:"Contrato de trabalho que termina numa data acordada." },
-      { v:"b2b",            label:"B2B",                   short:"facturas, sem direitos laborais",  help:"Facturas através da tua própria empresa. Sem direitos laborais, sem férias pagas, e os impostos e a segurança social são da tua responsabilidade." },
-      { v:"freelance",      label:"Freelancer",            short:"facturas como pessoa singular",    help:"Facturas como pessoa singular pelo trabalho acordado. Não existe vínculo laboral." },
-      { v:"contractor",     label:"Prestação de serviços", short:"contratado por um terceiro",       help:"És contratado por um terceiro e colocado no cliente por um período definido." },
+      { v:"b2b",            label:"B2B",                   short:"faturas, sem direitos laborais",  help:"Faturas através da tua própria empresa. Sem direitos laborais, sem férias pagas, e os impostos e a segurança social são da tua responsabilidade." },
+      { v:"freelance",      label:"Freelancer",            short:"faturas como pessoa singular",    help:"Faturas como pessoa singular pelo trabalho acordado. Não existe vínculo laboral." },
+      { v:"contractor",     label:"Trabalho temporário",   short:"contratado por uma empresa de trabalho temporário", help:"És contratado por uma empresa de trabalho temporário e colocado no cliente por um período definido." },
       { v:"internship",     label:"Estágio",               short:"limitado no tempo, ligado a estudos", help:"Posição limitada no tempo, ligada a formação ou a estudos." },
       { v:"apprenticeship", label:"Contrato de aprendizagem", short:"trabalho e formação formal",    help:"Função paga que combina trabalho com formação formal." },
       { v:"other",          label:"Outro",                 short:"",                                 help:"" },
@@ -189,17 +189,17 @@ const I18N = {
 
     l_benefits:"Benefícios", ph_benefits:"Seguro de saúde, subsídio de alimentação, orçamento de formação...",
 
-    s_stack:"Tech stack",
+    s_stack:"Stack tecnológica",
     l_required:"Obrigatório", ph_required:"SQL, Snowflake, dbt",
-    l_nice:"Bom ter", ph_nice:"Python, Airflow",
+    l_nice:"Desejável", ph_nice:"Python, Airflow",
 
     s_expect:"O que esperamos de ti",
-    l_expect:"Uma linha por ponto, sem lengalenga",
+    l_expect:"Uma linha por ponto, sem rodeios",
     ph_expect:"Desenhar e manter pipelines de dados fiáveis\nDocumentar o que constróis",
 
     p_live:"Pré-visualização",
     btn_copy:"Copiar Markdown", btn_copied:"Copiado ✓", btn_download:"Descarregar .md",
-    copy_failed:"Não foi possível copiar automaticamente. Selecciona a pré-visualização e copia à mão.",
+    copy_failed:"Não foi possível copiar automaticamente. Seleciona a pré-visualização e copia à mão.",
 
     contrib_title:"Isto é um padrão da comunidade.",
     contrib_body:"Falta um campo que importa no teu país, ou há alguma coisa mal escrita? Abre uma issue ou envia um pull request.",
@@ -209,12 +209,12 @@ const I18N = {
     foot_link:"Ver no GitHub →",
     foot_coffee:"Oferece-me um café",
 
-    doc_essentials:"Essenciais", doc_stack:"Tech stack", doc_expect:"O que esperamos de ti",
+    doc_essentials:"Essenciais", doc_stack:"Stack tecnológica", doc_expect:"O que esperamos de ti",
     doc_stages:"Fases de entrevista:", doc_test:"Avaliação técnica:",
     doc_mode:"Modalidade:", doc_tz:"Sobreposição de fuso horário exigida:",
     doc_contract:"Tipo de contrato:", doc_bond:"Vínculo contratual:",
     doc_salary:"Faixa salarial (bruto):", doc_benefits:"Benefícios:",
-    doc_req:"Obrigatório:", doc_nice:"Bom ter:",
+    doc_req:"Obrigatório:", doc_nice:"Desejável:",
     doc_title_ph:"[Título da vaga]", empty:"por preencher",
     doc_footer:"Escrito com o template de vagas [ClearJD](https://bonamim.github.io/clearjd/), v{v}.",
     bond_direct:"Direto com a empresa", bond_agency:"Via consultora, cliente final:",
@@ -273,7 +273,7 @@ const I18N = {
       { v:"fixed",          label:"Temporal",                short:"termina en una fecha acordada",    help:"Contrato de trabajo que termina en una fecha acordada." },
       { v:"b2b",            label:"B2B",                     short:"facturas, sin derechos laborales", help:"Facturas a través de tu propia empresa. Sin derechos laborales, sin vacaciones pagadas, y los impuestos y la seguridad social corren de tu cuenta." },
       { v:"freelance",      label:"Freelance",               short:"facturas como autónomo",           help:"Facturas como autónomo por el trabajo acordado. No hay relación laboral." },
-      { v:"contractor",     label:"Prestación de servicios", short:"te contrata un tercero",           help:"Te contrata un tercero y te asigna al cliente durante un periodo definido." },
+      { v:"contractor",     label:"Trabajo temporal (ETT)",  short:"te contrata una ETT",              help:"Te contrata una empresa de trabajo temporal y te asigna al cliente durante un periodo definido." },
       { v:"internship",     label:"Prácticas",               short:"limitado en el tiempo, ligado a estudios", help:"Puesto limitado en el tiempo, vinculado a formación o estudios." },
       { v:"apprenticeship", label:"Contrato de formación",   short:"trabajo y formación reglada",      help:"Puesto remunerado que combina trabajo con formación reglada." },
       { v:"other",          label:"Otro",                    short:"",                                 help:"" },

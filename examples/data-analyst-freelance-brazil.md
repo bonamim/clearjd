@@ -2,7 +2,7 @@
 
 ## Essenciais
 
-**Fases de entrevista:** 2 fases. 1. Conversa sobre o âmbito do projecto (30min), 2. Sessão técnica com live coding em SQL (60min)
+**Fases de entrevista:** 2 fases. 1. Conversa sobre o âmbito do projeto (30min), 2. Sessão técnica com live coding em SQL (60min)
 
 **Avaliação técnica:** Live coding (1 hora)
 
@@ -22,10 +22,10 @@
 
 ---
 
-## Tech stack
+## Stack tecnológica
 
 - Obrigatório: SQL, Power BI ou Metabase, modelação dimensional
-- Bom ter: Python, dbt, experiência com e-commerce
+- Desejável: Python, dbt, experiência com e-commerce
 
 ---
 

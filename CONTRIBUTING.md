@@ -36,8 +36,28 @@ reject it.
    translate the values.
 2. Add a button to the language toggle in `index.html`.
 
-`npm test` fails if a language is missing a key, so a half-finished
-translation cannot ship by accident.
+`npm test` fails if a language is missing a key, and also if a value is left
+as an untouched copy of the English, so a half-finished translation cannot
+ship by accident.
+
+### Conventions
+
+- **Portuguese uses the 1990 orthography**, the one in force in Portugal:
+  `projeto` not `projecto`, `fatura` not `factura`, `seleciona` not
+  `selecciona`. Words Portugal kept unchanged, such as `facto` and
+  `contacto`, stay as they are.
+- **Prefer wording that works in both Portugal and Brazil** where there is a
+  natural choice. `sem rodeios` rather than `sem lengalenga`.
+- **Translate the meaning, not the words.** `Nice to have` became `Desejável`
+  and `Deseable`, not a literal rendering.
+- **Keep borrowed technical terms** that the industry uses untranslated in
+  that language: `Live coding`, `Take-home`, `B2B`, `Markdown`.
+- **Contract types are legal categories, not labels.** Match the term to what
+  the arrangement actually is in that market. `Contractor` is
+  `Trabalho temporário` in Portugal and `Trabajo temporal (ETT)` in Spain,
+  because both describe being employed by an agency and placed with a client.
+- **Documentation is written in English**, and refers to languages by their
+  English names: Portuguese, not Português.
 
 ## What gets accepted
 

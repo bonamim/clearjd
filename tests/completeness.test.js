@@ -144,7 +144,7 @@ test('no translation is left as a copy of the English source', () => {
   // codes, and terms borrowed as-is.
   const shared = new Set([
     'ph_tz', 'ph_required', 'ph_nice', 'ph_stage_minutes',
-    's_stack', 'opt_test_live', 'opt_test_home',
+    'opt_test_live', 'opt_test_home',
     'opt_no', 'unit_minutes', 'btn_copied',
   ]);
 

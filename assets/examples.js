@@ -76,7 +76,7 @@ const EXAMPLES = [
   {
     id:'data-analyst-freelance-brazil',
     stages:[
-      { what:'Conversa sobre o âmbito do projecto', minutes:'30' },
+      { what:'Conversa sobre o âmbito do projeto', minutes:'30' },
       { what:'Sessão técnica com live coding em SQL', minutes:'60' },
     ],
     label:'Data Analyst, Brazil',
