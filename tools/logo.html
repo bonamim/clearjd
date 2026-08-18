@@ -2,17 +2,34 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<!--
+  Source for assets/logo-light.png and assets/logo-dark.png.
+
+  Two variants are needed because the background is transparent: the "JD"
+  is dark ink on a light page and cream on a dark one, or it would vanish
+  into whichever background it lands on. The README picks between them with
+  a <picture> element. The yellow mark carries its own background, so it is
+  identical in both.
+
+  Regenerate after editing:
+
+    CHROME="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+    for v in light dark; do
+      "$CHROME" --headless --disable-gpu --hide-scrollbars \
+        --screenshot=assets/logo-$v.png --window-size=880,260 \
+        --default-background-color=00000000 --virtual-time-budget=6000 \
+        "file://$PWD/tools/logo.html?variant=$v"
+    done
+
+  Rendered at 2x and displayed at 330px, so it stays crisp on retina.
+-->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
 <style>
-  /* Rendered at 2x (880x260) and displayed at 440px wide, so it stays crisp
-     on retina screens. The dark ground is baked in so the logo reads the
-     same on GitHub's light and dark themes. */
   *{box-sizing:border-box; margin:0;}
-  html,body{width:880px; height:260px; overflow:hidden;}
+  html,body{width:880px; height:260px; overflow:hidden; background:transparent;}
   body{
-    background:#0E141B;
     display:grid;
     place-items:center;
     font-family:'Space Grotesk', sans-serif;
@@ -24,8 +41,10 @@
     gap:6px;
     font-size:104px;
     letter-spacing:-0.02em;
-    color:#F3F1EA;
+    /* Overridden per variant below. */
+    color:#0E141B;
   }
+  body[data-variant="dark"] .logo{color:#F3F1EA;}
   .mark{
     background:#FFD400;
     color:#0E141B;
@@ -39,5 +58,10 @@
 </head>
 <body>
   <div class="logo"><span class="mark">Clear</span>JD</div>
+  <script>
+    // ?variant=dark renders the version for dark backgrounds.
+    const variant = new URL(location.href).searchParams.get('variant') || 'light';
+    document.body.dataset.variant = variant;
+  </script>
 </body>
 </html>

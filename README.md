@@ -1,6 +1,9 @@
 <div align="center">
 
-<img src="assets/logo.png" alt="ClearJD" width="330">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/logo-dark.png">
+  <img src="assets/logo-light.png" alt="ClearJD" width="330">
+</picture>
 
 ### Job descriptions that lead with what actually decides whether someone applies.
 
