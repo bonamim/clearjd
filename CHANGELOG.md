@@ -12,6 +12,13 @@ description is stamped with the version it was written against.
 | A field or an option is added | **minor** | They stay valid |
 | Wording, translations, examples, site changes | **patch** | No effect |
 
+## [Unreleased]
+
+### Removed
+
+- Cloudflare Web Analytics. The site loads no third-party scripts again, and
+  the footer no longer mentions visit counts.
+
 ## [1.0.1]
 
 A site release. The template is untouched, so a post written against 1.0.0

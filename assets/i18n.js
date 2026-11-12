@@ -104,7 +104,6 @@ const I18N = {
     foot_left:"ClearJD is free and open source, built for job posts that lead with what matters.",
     foot_link:"View on GitHub →",
     foot_coffee:"Buy me a coffee",
-    foot_privacy:"Anonymous visit counts, no cookies",
 
     doc_essentials:"Essentials", doc_stack:"Tech stack", doc_expect:"What we expect from you",
     doc_stages:"Interview stages:", doc_test:"Technical assessment:",
@@ -209,7 +208,6 @@ const I18N = {
     foot_left:"ClearJD é gratuito e open source, feito para vagas que começam pelo que importa.",
     foot_link:"Ver no GitHub →",
     foot_coffee:"Oferece-me um café",
-    foot_privacy:"Contagem anónima de visitas, sem cookies",
 
     doc_essentials:"Essenciais", doc_stack:"Stack tecnológica", doc_expect:"O que esperamos de ti",
     doc_stages:"Fases de entrevista:", doc_test:"Avaliação técnica:",
@@ -314,7 +312,6 @@ const I18N = {
     foot_left:"ClearJD es gratuito y de código abierto, hecho para vacantes que empiezan por lo que importa.",
     foot_link:"Ver en GitHub →",
     foot_coffee:"Invítame a un café",
-    foot_privacy:"Recuento anónimo de visitas, sin cookies",
 
     doc_essentials:"Esenciales", doc_stack:"Stack tecnológico", doc_expect:"Qué esperamos de ti",
     doc_stages:"Fases de entrevista:", doc_test:"Prueba técnica:",
