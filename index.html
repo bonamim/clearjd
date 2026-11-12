@@ -44,9 +44,17 @@
   <main>
 
     <section class="hero">
-      <p class="eyebrow" data-i18n="eyebrow">OPEN-SOURCE JOB DESCRIPTION STANDARD</p>
-      <h1 data-i18n="h1"><span class="hl">Stop hiding</span> what candidates actually need to know.</h1>
-      <p class="sub" data-i18n="sub">Fill in the essentials and get a clean job description in seconds. No account, your answers never leave your browser.</p>
+      <!-- Two documents from one field set: the recruiter's job description
+           and the candidate's answers to the same questions. -->
+      <div class="mode-switch" id="modeToggle" role="group" aria-labelledby="lbl_mode_switch">
+        <span class="sr-only" id="lbl_mode_switch" data-i18n="mode_label">What are you writing?</span>
+        <button type="button" data-mode="jd"   aria-pressed="true"  data-i18n="mode_jd">I'm hiring: job description</button>
+        <button type="button" data-mode="card" aria-pressed="false" data-i18n="mode_card">I'm applying: candidate card</button>
+      </div>
+
+      <p class="eyebrow" data-i18n="eyebrow" data-i18n-card="card_eyebrow">OPEN-SOURCE JOB DESCRIPTION STANDARD</p>
+      <h1 data-i18n="h1" data-i18n-card="card_h1"><span class="hl">Stop hiding</span> what candidates actually need to know.</h1>
+      <p class="sub" data-i18n="sub" data-i18n-card="card_sub">Fill in the essentials and get a clean job description in seconds. No account, your answers never leave your browser.</p>
 
       <div class="examples">
         <p class="examples-hint" data-i18n="examples_hint">Or start from a worked example:</p>
@@ -58,6 +66,9 @@
 
       <!-- ---------------------------------------------------------- form -->
       <div class="col col-form">
+
+      <!-- ............................................. job description -->
+      <div id="form_jd">
 
         <div class="field">
           <label for="f_title" data-i18n="l_title">Job title</label>
@@ -232,15 +243,164 @@
 
       </div>
 
+      <!-- .............................................. candidate card -->
+      <div id="form_card" hidden>
+
+        <div class="field">
+          <label for="c_name" data-i18n="l_card_name">Name or headline</label>
+          <input type="text" id="c_name" data-i18n-ph="ph_card_name" placeholder="Ana Silva, Data Engineer">
+        </div>
+
+        <h2 class="section-label" data-i18n="s_conditions">Conditions</h2>
+
+        <div class="field">
+          <label for="c_location" data-i18n="l_card_location">Where you live, and your timezone</label>
+          <input type="text" id="c_location" data-i18n-ph="ph_card_location" placeholder="Lisbon, UTC+0">
+        </div>
+
+        <div class="field">
+          <span class="group-label" id="lbl_c_modes" data-i18n="l_card_modes">Work modes you accept</span>
+          <span class="hint" id="hintCardModes" data-i18n="hint_card_modes">Pick every one you would take.</span>
+          <div class="radio-row" id="c_modes" role="group" aria-labelledby="lbl_c_modes" aria-describedby="hintCardModes">
+            <button type="button" data-val="remote" aria-pressed="false" data-i18n="opt_remote">100% remote</button>
+            <button type="button" data-val="hybrid" aria-pressed="false" data-i18n="opt_hybrid">Hybrid</button>
+            <button type="button" data-val="onsite" aria-pressed="false" data-i18n="opt_onsite">On-site</button>
+          </div>
+        </div>
+
+        <div class="field" id="c_days_wrap" hidden>
+          <label for="c_days" data-i18n="l_card_days">Most time on site you would accept</label>
+          <div class="inline-pair">
+            <input type="number" id="c_days" min="0" max="31" step="1" placeholder="2">
+            <div class="radio-row" id="c_days_unit" role="group" aria-labelledby="lbl_c_days_unit">
+              <span class="sr-only" id="lbl_c_days_unit">Unit</span>
+              <button type="button" data-val="week"  aria-pressed="true"  data-i18n="opt_per_week">per week</button>
+              <button type="button" data-val="month" aria-pressed="false" data-i18n="opt_per_month">per month</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <span class="group-label" id="lbl_c_contracts" data-i18n="l_card_contracts">Contract types you accept</span>
+          <!-- Built from the same contract list as the job description. -->
+          <div class="radio-row" id="c_contracts" role="group" aria-labelledby="lbl_c_contracts"></div>
+        </div>
+
+        <div class="field">
+          <label for="c_contract_note" data-i18n="l_card_contract_note">Anything to add about contracts</label>
+          <input type="text" id="c_contract_note" data-i18n-ph="ph_card_contract_note" placeholder="Self-employed without a company, willing to set one up">
+        </div>
+
+        <div class="field">
+          <span class="group-label" id="lbl_c_agency" data-i18n="l_card_agency">Would you be hired through a staffing agency?</span>
+          <div class="radio-row" id="c_agency" role="group" aria-labelledby="lbl_c_agency">
+            <button type="button" data-val="yes" aria-pressed="false" data-i18n="opt_yes">Yes</button>
+            <button type="button" data-val="no"  aria-pressed="false" data-i18n="opt_no">No</button>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="c_notice" data-i18n="l_card_notice">Notice period</label>
+          <span class="hint" id="hintCardNotice" data-i18n="hint_card_notice">How long before you can start. Write 0 if you can start right away.</span>
+          <div class="inline-pair">
+            <input type="number" id="c_notice" min="0" max="24" step="1" placeholder="4" aria-describedby="hintCardNotice">
+            <div class="radio-row" id="c_notice_unit" role="group" aria-labelledby="lbl_c_notice_unit">
+              <span class="sr-only" id="lbl_c_notice_unit">Unit</span>
+              <button type="button" data-val="week"  aria-pressed="true"  data-i18n="opt_weeks">weeks</button>
+              <button type="button" data-val="month" aria-pressed="false" data-i18n="opt_months">months</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="row3">
+            <div>
+              <label for="c_min" data-i18n="l_card_min">Expected salary, from</label>
+              <input type="number" id="c_min" min="0" step="any" placeholder="45000">
+            </div>
+            <div>
+              <label for="c_max" data-i18n="l_card_max">Expected salary, to</label>
+              <input type="number" id="c_max" min="0" step="any" placeholder="55000">
+            </div>
+            <div>
+              <label for="c_currency" data-i18n="l_currency">Currency</label>
+              <select id="c_currency"></select>
+            </div>
+          </div>
+          <span class="hint warn" id="cardSalaryWarn" role="alert" hidden data-i18n="warn_salary">The minimum is higher than the maximum.</span>
+        </div>
+
+        <div class="field" id="c_currency_other_wrap" hidden>
+          <label for="c_currency_other" data-i18n="l_currency_other">Currency code</label>
+          <input type="text" id="c_currency_other" data-i18n-ph="ph_currency_other" placeholder="ISO code, for example SGD" class="narrow">
+        </div>
+
+        <div class="field">
+          <span class="group-label" id="lbl_c_period" data-i18n="l_period">Period</span>
+          <div class="radio-row" id="c_period" role="group" aria-labelledby="lbl_c_period">
+            <button type="button" data-val="year"  aria-pressed="true"  data-i18n="opt_year">per year</button>
+            <button type="button" data-val="month" aria-pressed="false" data-i18n="opt_month">per month</button>
+            <button type="button" data-val="hour"  aria-pressed="false" data-i18n="opt_hour">per hour</button>
+          </div>
+        </div>
+
+        <div class="field">
+          <span class="group-label" id="lbl_c_relocate" data-i18n="l_card_relocate">Open to relocating?</span>
+          <div class="radio-row" id="c_relocate" role="group" aria-labelledby="lbl_c_relocate">
+            <button type="button" data-val="yes"     aria-pressed="false" data-i18n="opt_yes">Yes</button>
+            <button type="button" data-val="no"      aria-pressed="false" data-i18n="opt_no">No</button>
+            <button type="button" data-val="depends" aria-pressed="false" data-i18n="opt_depends">Depends</button>
+          </div>
+        </div>
+
+        <div class="field" id="c_relocate_cond_wrap" hidden>
+          <label for="c_relocate_cond" data-i18n="l_card_relocate_cond">Under what conditions</label>
+          <input type="text" id="c_relocate_cond" data-i18n-ph="ph_card_relocate_cond" placeholder="Only within the EU, with relocation support">
+        </div>
+
+        <h2 class="section-label" data-i18n="s_card_tech">Experience by technology</h2>
+
+        <div class="field">
+          <span class="group-label" id="lbl_techs" data-i18n="l_card_tech">Technologies and years</span>
+          <span class="hint" id="hintTech" data-i18n="hint_card_tech">One technology per row, with the years you have used it at work.</span>
+          <!-- One row per technology, added and removed by the user. -->
+          <div class="stage-list" id="techList" role="group" aria-labelledby="lbl_techs" aria-describedby="hintTech"></div>
+          <button type="button" class="btn btn-ghost btn-small" id="btnAddTech" data-i18n="btn_add_tech">+ Add technology</button>
+          <span class="hint warn" id="techWarn" role="alert" hidden></span>
+          <!-- Suggestions only: any name can be typed. Proper nouns, so not translated. -->
+          <datalist id="techSuggestions">
+            <option value="SQL"></option><option value="Python"></option><option value="Java"></option>
+            <option value="JavaScript"></option><option value="TypeScript"></option><option value="Go"></option>
+            <option value="C#"></option><option value="C++"></option><option value="Rust"></option>
+            <option value="Kotlin"></option><option value="Swift"></option><option value="PHP"></option>
+            <option value="Ruby"></option><option value="Scala"></option><option value="React"></option>
+            <option value="Angular"></option><option value="Vue"></option><option value="Node.js"></option>
+            <option value=".NET"></option><option value="Spring"></option><option value="Django"></option>
+            <option value="PostgreSQL"></option><option value="MySQL"></option><option value="MongoDB"></option>
+            <option value="Snowflake"></option><option value="BigQuery"></option><option value="dbt"></option>
+            <option value="Airflow"></option><option value="Spark"></option><option value="Kafka"></option>
+            <option value="Power BI"></option><option value="Tableau"></option><option value="AWS"></option>
+            <option value="Azure"></option><option value="GCP"></option><option value="Docker"></option>
+            <option value="Kubernetes"></option><option value="Terraform"></option><option value="Linux"></option>
+          </datalist>
+        </div>
+
+      </div>
+
+      </div>
+
       <!-- ------------------------------------------------------- preview -->
       <div class="col col-preview">
         <div class="preview-card">
           <p class="preview-title" data-i18n="p_live">Live preview</p>
+          <p class="share-notice" id="shareNotice" role="status" hidden></p>
           <div class="doc" id="doc" aria-live="polite"></div>
           <div class="actions">
             <button type="button" class="btn btn-primary" id="btnCopy" data-i18n="btn_copy">Copy Markdown</button>
             <button type="button" class="btn btn-ghost" id="btnDownload" data-i18n="btn_download">Download .md</button>
+            <button type="button" class="btn btn-ghost" id="btnShare" data-i18n="btn_share" aria-describedby="shareHint">Copy link</button>
           </div>
+          <p class="hint standalone share-hint" id="shareHint" data-i18n="hint_share">The link holds everything in the form. Anyone you send it to can read it, and it is not stored anywhere else.</p>
           <p class="sr-only" id="copyStatus" role="status"></p>
         </div>
       </div>
@@ -276,6 +436,8 @@
 <script src="assets/i18n.js"></script>
 <script src="assets/core.js"></script>
 <script src="assets/jd.js"></script>
+<script src="assets/card.js"></script>
+<script src="assets/share.js"></script>
 <script src="assets/examples.js"></script>
 <script src="assets/app.js"></script>
 

@@ -66,6 +66,8 @@ function fillSelect(id, options){
 
 const contractTypes = () => dict().contract_types;
 
+const currencyValues = () => [...CURRENCIES, 'other'];
+
 const currencyOptions = () => [
   ...CURRENCIES.map(c => ({ v:c, label:c })),
   { v:'other', label:dict().opt_currency_other },

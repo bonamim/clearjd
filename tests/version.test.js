@@ -56,13 +56,25 @@ test('generated job descriptions carry the version', () => {
   );
 });
 
+test('candidate cards carry the version', () => {
+  const app = loadApp();
+  app.loadExample('candidate-backend-engineer-poland');
+
+  assert.ok(
+    app.cardToMarkdown().includes(`v${app.CLEARJD_VERSION}`),
+    'the exported card must state which version of the template it follows'
+  );
+});
+
 test('every language stamps the version', () => {
   const app = loadApp();
 
   for(const lang of Object.keys(app.I18N)){
-    assert.ok(
-      app.I18N[lang].doc_footer.includes('{v}'),
-      `the "${lang}" footer drops the {v} placeholder, so posts would not state a version`
-    );
+    for(const key of ['doc_footer', 'doc_card_footer']){
+      assert.ok(
+        app.I18N[lang][key].includes('{v}'),
+        `the "${lang}" ${key} drops the {v} placeholder, so documents would not state a version`
+      );
+    }
   }
 });

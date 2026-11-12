@@ -1,5 +1,5 @@
 <!--
-ClearJD template, v1.0.0
+ClearJD template, v1.1.0
 https://bonamim.github.io/clearjd/
 
 Copy this file and replace everything in [brackets].
@@ -72,4 +72,4 @@ team player with a passion for data".
 
 ---
 
-*Written with the [ClearJD](https://bonamim.github.io/clearjd/) job description template, v1.0.0.*
+*Written with the [ClearJD](https://bonamim.github.io/clearjd/) job description template, v1.1.0.*

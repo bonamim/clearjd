@@ -132,8 +132,38 @@ header{
 /* Hero ------------------------------------------------------------------ */
 
 .hero{
-  padding:64px 0 40px;
+  padding:40px 0 40px;
   border-bottom:1px solid var(--border);
+}
+
+/* Which side of the screening you are on. The first decision on the page,
+   so it sits above the headline it changes. */
+.mode-switch{
+  display:inline-flex;
+  flex-wrap:wrap;
+  gap:4px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:4px;
+  margin:0 0 28px;
+}
+.mode-switch button{
+  font-size:14px;
+  font-weight:500;
+  background:transparent;
+  color:var(--text-dim);
+  border:none;
+  padding:9px 16px;
+  border-radius:var(--radius-sm);
+  cursor:pointer;
+  transition:background .15s ease, color .15s ease;
+}
+.mode-switch button:hover{color:var(--text);}
+.mode-switch button[aria-pressed="true"]{
+  background:var(--accent);
+  color:var(--accent-ink);
+  font-weight:600;
 }
 .eyebrow{
   font-family:var(--mono);
@@ -281,7 +311,9 @@ h1 .hl{
 
 /* A number paired with the unit it is measured in, so "2" is never ambiguous. */
 .inline-pair{display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
-.inline-pair input{width:90px; flex:0 0 auto;}
+/* Qualified with the type so it outranks the full-width rule for number
+   inputs further down, which would otherwise push the unit onto a new line. */
+.inline-pair input[type=number]{width:90px; flex:0 0 auto;}
 .unit-suffix{font-size:13px; color:var(--text-dim); white-space:nowrap;}
 
 /* One row per interview stage, built to match the number the user entered. */
@@ -300,6 +332,25 @@ h1 .hl{
 }
 .stage-row .stage-what{flex:1 1 auto; min-width:0;}
 .stage-row .stage-minutes{flex:0 0 76px; width:76px;}
+
+/* Technology rows reuse the stage layout, with a remove button at the end. */
+.stage-row .tech-name{flex:1 1 auto; min-width:0;}
+.stage-row .tech-years{flex:0 0 76px; width:76px;}
+.row-remove{
+  flex:0 0 auto;
+  width:32px; height:32px;
+  display:grid; place-items:center;
+  font-size:18px;
+  line-height:1;
+  background:transparent;
+  color:var(--text-dim);
+  border:1px solid var(--border);
+  border-radius:var(--radius-sm);
+  cursor:pointer;
+}
+.row-remove:hover{color:var(--danger); border-color:var(--danger);}
+.btn-small{font-size:13px; padding:8px 14px; margin-top:10px;}
+.btn:disabled{opacity:.45; cursor:not-allowed;}
 
 input[type=text],
 input[type=number],
@@ -412,7 +463,20 @@ textarea{resize:vertical; min-height:64px;}
 .doc .empty{color:var(--text-faint); font-style:italic;}
 .doc .bullet{color:var(--text-faint);}
 
-.actions{display:flex; gap:10px; margin-top:22px;}
+.actions{display:flex; flex-wrap:wrap; gap:10px; margin-top:22px;}
+.share-hint{margin:12px 0 0;}
+
+/* Shown when the form was filled from a link someone sent. */
+.share-notice{
+  font-size:13px;
+  color:var(--text);
+  background:var(--surface-2);
+  border:1px solid var(--border);
+  border-left:3px solid var(--marker);
+  border-radius:var(--radius-sm);
+  padding:10px 12px;
+  margin:0 0 18px;
+}
 .btn{
   font-weight:600;
   font-size:14px;

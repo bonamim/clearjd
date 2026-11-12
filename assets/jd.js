@@ -227,7 +227,10 @@ DOCS.jd = {
     bond:'direct',
     period:'year',
   }),
-  selects:{ f_contract:'permanent', f_currency:'EUR' },
+  selects:{
+    f_contract:{ fallback:'permanent', values:() => contractTypes().map(t => t.v) },
+    f_currency:{ fallback:'EUR',       values:currencyValues },
+  },
   rows:stageList,
   rowsKey:'stages',           // where an example keeps its rows
   rowCountField:'f_stages_count',

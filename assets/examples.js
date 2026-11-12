@@ -5,6 +5,10 @@
  * the Markdown files under examples/. A test fails if the two ever drift, so
  * the files on disk always match what the generator actually produces.
  *
+ * Each entry is for one document: `doc:'card'` for a candidate card, the job
+ * description otherwise. Job descriptions keep their interview stages in
+ * `stages`, candidate cards their technologies in `techs`.
+ *
  * To add one: append an entry here, run `npm run examples`, commit both.
  * Pick a combination that is not covered yet (a different market, contract
  * type or employment relationship) so the set keeps stress-testing the
@@ -98,6 +102,70 @@ const EXAMPLES = [
         'Validar os números com quem os vai usar antes de dar o trabalho por fechado',
         'Estimar o esforço por entrega e avisar cedo quando a estimativa muda',
       ].join('\n'),
+    },
+  },
+
+  /* Candidate cards. Written as answers to the job posts above would be
+     read: the same option values, so the two sides line up. */
+
+  {
+    id:'candidate-data-engineer-portugal',
+    doc:'card',
+    label:'Data Engineer, Lisbon',
+    note:'Candidate card: remote or hybrid, open to freelance',
+    lang:'pt',
+    state:{
+      cardModes:['remote','hybrid'], cardDaysUnit:'week',
+      cardContracts:['permanent','freelance'],
+      cardAgency:'yes',
+      cardNoticeUnit:'month',
+      cardPeriod:'year',
+      cardRelocate:'depends',
+    },
+    techs:[
+      { name:'SQL',       years:'7' },
+      { name:'dbt',       years:'3' },
+      { name:'Python',    years:'5' },
+      { name:'Snowflake', years:'3' },
+      { name:'Airflow',   years:'2' },
+    ],
+    fields:{
+      c_name:'Ana Silva, Engenheira de Dados',
+      c_location:'Lisboa, UTC+0',
+      c_days:'2',
+      c_contract_note:'Como freelancer, trabalhador independente sem empresa, disposto a abrir uma',
+      c_notice:'1',
+      c_min:'40000', c_max:'48000', c_currency:'EUR',
+      c_relocate_cond:'Só dentro da UE, com apoio à mudança',
+    },
+  },
+
+  {
+    id:'candidate-backend-engineer-poland',
+    doc:'card',
+    label:'Backend Engineer, Kraków',
+    note:'Candidate card: remote only, B2B, can start now',
+    lang:'en',
+    state:{
+      cardModes:['remote'],
+      cardContracts:['b2b','contractor'],
+      cardAgency:'no',
+      cardNoticeUnit:'week',
+      cardPeriod:'hour',
+      cardRelocate:'no',
+    },
+    techs:[
+      { name:'Go',         years:'6' },
+      { name:'PostgreSQL', years:'8' },
+      { name:'Kubernetes', years:'4' },
+      { name:'Kafka',      years:'1.5' },
+    ],
+    fields:{
+      c_name:'Senior Backend Engineer (Go)',
+      c_location:'Kraków, UTC+1',
+      c_contract_note:'Own company registered in Poland, invoices monthly with VAT',
+      c_notice:'0',
+      c_min:'170', c_currency:'PLN',
     },
   },
 

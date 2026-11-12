@@ -26,9 +26,9 @@ test('every language defines exactly the same keys', () => {
 
 test('every i18n key used in the markup exists', () => {
   const { I18N, html } = loadApp();
-  const used = [...html.matchAll(/data-i18n(?:-ph)?="([^"]+)"/g)]
+  const used = [...html.matchAll(/data-i18n(?:-ph|-card)?="([^"]+)"/g)]
     .map(m => m[1])
-    .filter(k => k !== 'h1');   // built from h1_pre + h1_post
+    .filter(k => k !== 'h1' && k !== 'card_h1');   // built from *_pre + *_post
 
   for(const key of new Set(used)){
     assert.ok(I18N.en[key] !== undefined, `markup references unknown i18n key "${key}"`);

@@ -11,73 +11,99 @@ const test = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
-const { loadApp, fillExample, read, ROOT } = require('../tools/harness');
+const { loadApp, fillExample, fillCard, read, ROOT } = require('../tools/harness');
 
+
+/* How each document is put into the state where every conditional field is
+   live, so a field is only ever missing from the export because it was not
+   wired up. A document added to DOCS must be added here too. */
+const DOC_CASES = {
+  jd: {
+    fill: fillExample,
+    live: app => { app.state.test = 'home'; app.state.mode = 'hybrid'; app.state.bond = 'agency'; },
+    numeric: /days|time|min|max/,
+    skip: new Set([
+      'f_stages_count',      // becomes "3 stages", not the raw number
+      'f_contract',          // a select value, exported as its label
+      'f_currency',          // a select value, exported as the code
+      'f_contract_other',    // only used when contract type is "other"
+      'f_currency_other',    // only used when currency is "other"
+    ]),
+  },
+  card: {
+    fill: fillCard,
+    live: app => { app.state.cardModes = ['hybrid']; app.state.cardRelocate = 'depends'; },
+    numeric: /days|notice|min|max/,
+    skip: new Set([
+      'c_currency',          // a select value, exported as the code
+      'c_currency_other',    // only used when currency is "other"
+    ]),
+  },
+};
+
+test('every document has a completeness case', () => {
+  const { DOCS } = loadApp();
+  for(const id of Object.keys(DOCS)){
+    assert.ok(DOC_CASES[id], `document "${id}" has no entry in DOC_CASES, so nothing checks its fields reach the export`);
+  }
+});
 
 test('every form field reaches the exported document', () => {
-  const app = loadApp();
-  fillExample(app);
+  for(const [docId, c] of Object.entries(DOC_CASES)){
+    const app = loadApp();
+    c.fill(app);
+    c.live(app);
+    const doc = app.DOCS[docId];
 
-  // Put the form in the state where every conditional field is live, so a
-  // field is only ever missing because it was not wired up.
-  app.state.test = 'home';
-  app.state.mode = 'hybrid';
-  app.state.bond = 'agency';
+    // Give every field a value that could not appear by accident, then check
+    // each one survives into the Markdown. A new field wired into the form
+    // but not into collect() fails here.
+    for(const id of doc.fieldIds){
+      if(c.skip.has(id)) continue;
 
-  // Give every field a value that could not appear by accident, then check
-  // each one survives into the Markdown. A new field wired into the form but
-  // not into collect() fails here.
-  const skip = new Set([
-    'f_stages_count',      // becomes "3 stages", not the raw number
-    'f_contract',          // a select value, exported as its label
-    'f_currency',          // a select value, exported as the code
-    'f_contract_other',    // only used when contract type is "other"
-    'f_currency_other',    // only used when currency is "other"
-  ]);
+      const marker = `ZZ${id}ZZ`;
+      const isNumeric = c.numeric.test(id);
+      app.els[id].value = isNumeric ? '7' : marker;
 
-  for(const id of app.FIELD_IDS){
-    if(skip.has(id)) continue;
+      const md = doc.toMarkdown();
+      const expected = isNumeric ? '7' : marker;
 
-    const marker = `ZZ${id}ZZ`;
-    const isNumeric = /days|time|min|max/.test(id);
-    app.els[id].value = isNumeric ? '7' : marker;
-
-    const md = app.toMarkdown();
-    const expected = isNumeric ? '7' : marker;
-
-    assert.ok(
-      md.includes(expected),
-      `field "${id}" never reaches the exported Markdown. Wire it into collect() and toMarkdown().`
-    );
+      assert.ok(
+        md.includes(expected),
+        `field "${id}" never reaches the exported ${docId} Markdown. Wire it into collect() and toMarkdown().`
+      );
+    }
   }
 });
 
-test('every field listed in FIELD_IDS exists in the markup', () => {
-  const { FIELD_IDS, html } = loadApp();
+test('every listed field exists in the markup', () => {
+  const { DOCS, html } = loadApp();
 
-  for(const id of FIELD_IDS){
-    assert.ok(
-      html.includes(`id="${id}"`),
-      `FIELD_IDS names "${id}", which is not in index.html. Remove it or add the control.`
-    );
+  for(const doc of Object.values(DOCS)){
+    for(const id of doc.fieldIds){
+      assert.ok(
+        html.includes(`id="${id}"`),
+        `${doc.id} lists field "${id}", which is not in index.html. Remove it or add the control.`
+      );
+      assert.ok(id.startsWith(doc.prefix), `${doc.id} field "${id}" does not use the "${doc.prefix}" prefix`);
+    }
   }
 });
 
-test('every text control in the markup is listed in FIELD_IDS', () => {
-  const { FIELD_IDS, html } = loadApp();
+test('every text control in the markup belongs to a document', () => {
+  const { DOCS, html } = loadApp();
 
-  // Dynamic stage rows are built at runtime and held in their own model, so
-  // they are not part of the static field list.
-  const dynamic = new Set(['stageList']);
+  // Every control, whatever its id, so a field with a new prefix cannot slip
+  // past the checks above. Dynamic rows are built at runtime and held in
+  // their own model, so they never appear in the static markup.
+  const controls = [...html.matchAll(/<(?:input|select|textarea)[^>]*id="([a-zA-Z_]+)"/g)].map(m => m[1]);
+  const owned = new Map(Object.values(DOCS).flatMap(doc => doc.fieldIds.map(id => [id, doc.id])));
 
-  const controls = [...html.matchAll(/<(?:input|select|textarea)[^>]*id="(f_[a-zA-Z_]+)"/g)]
-    .map(m => m[1])
-    .filter(id => !dynamic.has(id));
-
+  assert.ok(controls.length > 20, 'expected the forms to have controls');
   for(const id of controls){
     assert.ok(
-      FIELD_IDS.includes(id),
-      `control #${id} is in the form but missing from FIELD_IDS, so loading an example will not clear it`
+      owned.has(id),
+      `control #${id} is in the form but in no document's field list, so loading an example or a link will not clear it`
     );
   }
 });
@@ -173,7 +199,7 @@ test('every link points at the real repository', () => {
   // The repo and Pages URLs are repeated across the site, the docs and the
   // exported Markdown. package.json is the one that decides.
   const files = ['index.html', 'README.md', 'CONTRIBUTING.md', 'CHANGELOG.md',
-                 'TEMPLATE.md', 'assets/i18n.js', '.github/CODEOWNERS'];
+                 'TEMPLATE.md', 'CARD.md', 'assets/i18n.js', '.github/CODEOWNERS'];
 
   for(const file of files){
     const source = read(file);
@@ -236,12 +262,35 @@ test('TEMPLATE.md documents every field the generator emits', () => {
   }
 });
 
+test('CARD.md documents every field the card emits', () => {
+  const { I18N } = loadApp();
+  const template = read('CARD.md');
+
+  // The same rule as for TEMPLATE.md: filling the card by hand and using the
+  // generator must give the same document.
+  const d = I18N.en;
+  for(const key of ['doc_card_location', 'doc_card_modes', 'doc_card_contracts', 'doc_card_agency',
+                    'doc_card_notice', 'doc_card_salary', 'doc_card_relocate']){
+    assert.ok(template.includes(`**${d[key]}**`), `CARD.md is missing "${d[key]}", which the generator emits`);
+  }
+  for(const heading of [d.doc_card_conditions, d.doc_card_tech]){
+    assert.ok(template.includes(`## ${heading}`), `CARD.md is missing the "${heading}" section`);
+  }
+});
+
+test('the hand-written templates state the current version', () => {
+  const { CLEARJD_VERSION } = loadApp();
+  for(const file of ['TEMPLATE.md', 'CARD.md']){
+    assert.ok(read(file).includes(`v${CLEARJD_VERSION}`), `${file} does not state v${CLEARJD_VERSION}`);
+  }
+});
+
 test('the generated document has no leftover placeholders', () => {
   const app = loadApp();
 
   for(const example of app.EXAMPLES){
     app.loadExample(example.id);
-    const md = app.toMarkdown();
+    const md = app.activeDoc().toMarkdown();
 
     assert.doesNotMatch(md, /\{[a-z]\}/, `example "${example.id}" left an unfilled {placeholder}`);
     assert.doesNotMatch(md, /\[.*?\]\s*$/m, `example "${example.id}" left a [bracketed] template value`);
