@@ -1,8 +1,9 @@
 /* The version of the ClearJD standard.
  *
- * This is the version of the *template*, not of the website. It is stamped
- * into every generated job description so a post can be traced back to the
- * field set it was written against.
+ * This is the version of the *template*, not of the website. It covers both
+ * documents, the job description and the candidate card, because their
+ * fields mirror each other. It is stamped into everything the generator
+ * exports, so a document can be traced back to the field set it follows.
  *
  * Semantic versioning, applied to the template:
  *   MAJOR  a field is removed or renamed, or its meaning changes.
@@ -15,4 +16,4 @@
  */
 'use strict';
 
-const CLEARJD_VERSION = '1.0.1';
+const CLEARJD_VERSION = '1.1.0';

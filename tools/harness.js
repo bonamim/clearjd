@@ -31,12 +31,23 @@ function makeElement(id){
   };
 }
 
+/** Just enough of window.location for the share links. */
+function makeLocation(hash){
+  const base = 'https://bonamim.github.io/clearjd/';
+  return {
+    hash,
+    get href(){ return base + this.hash; },
+  };
+}
+
 /**
- * Load index.html + i18n.js + app.js into a fresh stubbed DOM.
+ * Load index.html and every script it loads into a fresh stubbed DOM.
  * Returns the app internals plus the element map, so tests can set input
  * values and read back what the generator produced.
+ *
+ * `hash` is the address fragment the page opens with, to test share links.
  */
-function loadApp(){
+function loadApp({ hash = '' } = {}){
   const html = read('index.html');
 
   const els = {};
@@ -44,38 +55,53 @@ function loadApp(){
     els[m[1]] = makeElement(m[1]);
   }
 
+  const location = makeLocation(hash);
+  const prompts = [];
+
   const sandbox = {
+    location,
+    history:{
+      replaceState(_state, _title, url){
+        const i = String(url).indexOf('#');
+        location.hash = i === -1 ? '' : String(url).slice(i);
+      },
+    },
     document:{
       documentElement:{},
       getElementById: id => els[id],
+      querySelector: () => null,
       querySelectorAll: () => [],
       createElement: () => makeElement('created'),
       body:{ appendChild(){} },
     },
-    window:{ alert(){} },
+    window:{ alert(){}, prompt(message, value){ prompts.push(value); }, addEventListener(){} },
     navigator:{ clipboard:{ writeText: async () => {} } },
     Blob: class {},
     URL:{ createObjectURL: () => '', revokeObjectURL(){} },
     setTimeout, clearTimeout,
   };
 
-  // Run both scripts in one scope, the way the browser does with plain
-  // <script> tags, then hand back the internals the tests need.
+  // Run every script in one scope, in the order index.html loads them, the
+  // way the browser does with plain <script> tags. Reading the list from the
+  // page means a new asset is tested the moment the page loads it.
+  const scripts = [...html.matchAll(/<script src="(assets\/[^"]+)"/g)].map(m => m[1]);
   const source = `
-    ${read('assets/version.js')}
-    ${read('assets/i18n.js')}
-    ${read('assets/examples.js')}
-    ${read('assets/app.js')}
-    ({ I18N, CURRENCIES, EXAMPLES, CLEARJD_VERSION, FIELD_IDS, MAX_STAGES,
+    ${scripts.map(read).join('\n')}
+    ({ I18N, CURRENCIES, EXAMPLES, CLEARJD_VERSION, DOCS, FIELD_IDS, MAX_STAGES,
        collect, toMarkdown, filename, render, state, loadExample,
-       setStageCount, renderStageInputs,
-       getStages: () => stages,
+       setStageCount, renderStageInputs, activeDoc,
+       CARD_FIELD_IDS, MAX_TECHS, collectCard, cardToMarkdown, cardFilename, techList,
+       encodeShare, decodeShare, shareLink, readHash, setMode, switchMode,
+       openFromAddress, showNotice,
+       getStages: () => stageList.rows,
+       getMode: () => mode,
+       getLang: () => lang,
        setLang: l => { lang = l; applyStaticI18n(); } })
   `;
   const run = new Function(...Object.keys(sandbox), `'use strict'; return eval(${JSON.stringify(source)});`);
   const api = run(...Object.values(sandbox));
 
-  return { ...api, els, html };
+  return { ...api, els, html, location, prompts };
 }
 
 /** Fill the form with a realistic, fully populated job post. */
@@ -107,6 +133,34 @@ function fillExample(app){
   set('f_expect',       'Design reliable pipelines\nDocument what you build');
 }
 
+/** Fill the candidate card with a realistic, fully answered set. */
+function fillCard(app){
+  const els = app.els;
+  const set = (id, value) => { els[id].value = value; };
+
+  app.setMode('card');
+  Object.assign(app.state, {
+    cardModes:['remote','hybrid'], cardDaysUnit:'week',
+    cardContracts:['permanent','freelance'],
+    cardAgency:'yes', cardNoticeUnit:'month', cardPeriod:'year',
+    cardRelocate:'depends',
+  });
+  app.techList.set([
+    { name:'Python', years:'5' },
+    { name:'SQL',    years:'7' },
+  ]);
+
+  set('c_name',          'Ana Silva, Data Engineer');
+  set('c_location',      'Lisbon, UTC+0');
+  set('c_days',          '2');
+  set('c_contract_note', 'Self-employed, willing to set up a company');
+  set('c_notice',        '1');
+  set('c_min',           '45000');
+  set('c_max',           '55000');
+  set('c_currency',      'EUR');
+  set('c_relocate_cond', 'Only within the EU');
+}
+
 /**
  * Load one example into a loaded app and return the Markdown it produces.
  * Used both by `npm run examples` to write the files and by the tests to
@@ -114,7 +168,7 @@ function fillExample(app){
  */
 function renderExample(app, id){
   app.loadExample(id);
-  return app.toMarkdown();
+  return app.activeDoc().toMarkdown();
 }
 
-module.exports = { loadApp, fillExample, renderExample, read, ROOT };
+module.exports = { loadApp, fillExample, fillCard, renderExample, read, ROOT };

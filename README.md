@@ -6,7 +6,7 @@
 
 [**→ Open the free generator**](https://bonamim.github.io/clearjd/)
 
-English · Portuguese · Spanish&nbsp;&nbsp;·&nbsp;&nbsp;No account&nbsp;&nbsp;·&nbsp;&nbsp;Nothing is sent anywhere
+English · Portuguese · Spanish&nbsp;&nbsp;·&nbsp;&nbsp;No account&nbsp;&nbsp;·&nbsp;&nbsp;No backend
 
 </div>
 
@@ -44,6 +44,24 @@ you type ever leaves your computer.
 
 Prefer to write it by hand? Copy [`TEMPLATE.md`](./TEMPLATE.md) instead.
 
+## The other side: the candidate card
+
+Candidates answer the same screening questions on every call: notice
+period, salary expectation, which contract types they accept, whether they
+would relocate, how many years of each technology. The
+**[candidate card](https://bonamim.github.io/clearjd/#card)** lets them
+answer once and send the result to any recruiter who asks, as Markdown or as
+a link.
+
+Its fields mirror the job description's, with the same options, so a post
+and a card can be read side by side. Recruiters can simply ask applicants to
+send one: the link to give them is `https://bonamim.github.io/clearjd/#card`.
+
+A share link holds the answers in the address itself, after the `#`.
+Browsers never send that part to a server and the page loads no third-party
+scripts, so the answers go only where the link is sent. By hand:
+[`CARD.md`](./CARD.md).
+
 ## What a finished post looks like
 
 > **Interview stages:** 3 stages. 1. HR screening (30min), 2. Technical, with a SQL and modelling exercise (60min), 3. Team fit with the data team (45min)
@@ -62,8 +80,9 @@ Prefer to write it by hand? Copy [`TEMPLATE.md`](./TEMPLATE.md) instead.
 >
 > **Benefits:** Health insurance, meal allowance on card, annual training budget of 500 EUR, flexible hours
 
-Full examples, including a B2B contract through an agency and a freelance
-role paid by the hour, are in [`examples/`](./examples/).
+Full examples, including a B2B contract through an agency, a freelance
+role paid by the hour and two candidate cards, are in
+[`examples/`](./examples/).
 
 ## Why bother
 
@@ -114,8 +133,8 @@ or one is missing, please say so.
 ## Versions
 
 The template is versioned, and every generated post is stamped with the
-version it follows, so "ClearJD v1.0.0" always means one specific set of
-fields. History and the rules for bumping are in
+version it follows, so "ClearJD v1.1.0" always means one specific set of
+fields. One version covers both the job description and the candidate card. History and the rules for bumping are in
 [`CHANGELOG.md`](./CHANGELOG.md).
 
 ---
@@ -152,7 +171,11 @@ assets/
   i18n.js             all translations, one object per language
   examples.js         the worked examples, as data
   version.js          the version of the standard
-  app.js              the generator
+  core.js             shared engine: toggles, row lists, preview, salary
+  jd.js               the job description: fields, collect(), export
+  card.js             the candidate card: fields, collect(), export
+  share.js            share links, and checking what comes back from one
+  app.js              page wiring, and the switch between the two
   *.png, favicon.svg  generated from the HTML sources in tools/
 examples/             generated from assets/examples.js, do not edit by hand
 tools/
@@ -165,9 +188,14 @@ tools/
 tests/                run with `npm test`, no dependencies
 ```
 
-The generator has one rule worth knowing: `collect()` in `assets/app.js` is
-the single source of truth. The live preview and the Markdown export both
-read from it, so what you see is always what you copy. A test enforces that.
+The generator has one rule worth knowing: each document's `collect()` is its
+single source of truth. The live preview and the Markdown export both read
+from it, so what you see is always what you copy. A test enforces that.
+
+Each document registers itself in `DOCS` with its fields, toggles and
+export. The completeness tests run over every entry, so a new field on
+either side fails the suite until it reaches the export, has a label and is
+cleared when an example or a link is loaded.
 
 ### About `.nojekyll`
 

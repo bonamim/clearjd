@@ -37,4 +37,4 @@
 
 ---
 
-*Written with the [ClearJD](https://bonamim.github.io/clearjd/) job description template, v1.0.1.*
+*Written with the [ClearJD](https://bonamim.github.io/clearjd/) job description template, v1.1.0.*

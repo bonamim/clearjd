@@ -99,14 +99,13 @@ if(loaded.indexOf('assets/app.js') !== loaded.length - 1){
   report('index.html', 'app.js must be loaded last, after the data it reads');
 }
 
-// 8. Scripts must be local, with one documented exception. The page promises
-//    that nothing a user types leaves their machine, and a third-party script
-//    can read the DOM, so every new one widens what a visitor has to trust.
-//    The Cloudflare Web Analytics beacon is allowed because it reports only
-//    the page URL, referrer and load timings, sets no cookies, and is the one
-//    thing keeping this list short: an allowlist, not an open door. Adding to
-//    it should be a deliberate decision, which is why it lives here.
-const ALLOWED_SCRIPT_HOSTS = new Set(['static.cloudflareinsights.com']);
+// 8. Scripts must be local. The page promises that nothing a user types
+//    leaves their machine, and a third-party script can read the DOM, so
+//    every one would widen what a visitor has to trust. An earlier release
+//    allowed one analytics beacon; it was removed because shared links carry
+//    the form data in the URL fragment, where any script on the page can
+//    read it. Keep this list empty unless that changes on purpose.
+const ALLOWED_SCRIPT_HOSTS = new Set([]);
 
 for(const [, url] of html.matchAll(/<script[^>]*src="(https?:[^"]+)"/g)){
   if(!ALLOWED_SCRIPT_HOSTS.has(new URL(url).host)){

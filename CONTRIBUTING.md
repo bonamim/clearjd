@@ -104,9 +104,14 @@ a version has to mean one specific set of fields.
 | A field or an option is added | minor | They stay valid |
 | Wording, translations, examples, site changes | patch | No effect |
 
+One version covers both documents, the job description and the candidate
+card, since their fields mirror each other. A field added to either is a
+minor bump.
+
 To release: set the same number in `assets/version.js` and `package.json`,
-add the entry to [`CHANGELOG.md`](./CHANGELOG.md), merge, then tag `vX.Y.Z`.
-The tests fail if those three disagree, so the version cannot drift.
+add the entry to [`CHANGELOG.md`](./CHANGELOG.md), update the version line in
+`TEMPLATE.md` and `CARD.md`, merge, then tag `vX.Y.Z`. The tests fail if any
+of those disagree, so the version cannot drift.
 
 ## Who can merge
 
