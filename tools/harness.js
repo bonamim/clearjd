@@ -59,17 +59,17 @@ function loadApp(){
     setTimeout, clearTimeout,
   };
 
-  // Run both scripts in one scope, the way the browser does with plain
-  // <script> tags, then hand back the internals the tests need.
+  // Run every script in one scope, in the order index.html loads them, the
+  // way the browser does with plain <script> tags. Reading the list from the
+  // page means a new asset is tested the moment the page loads it.
+  const scripts = [...html.matchAll(/<script src="(assets\/[^"]+)"/g)].map(m => m[1]);
   const source = `
-    ${read('assets/version.js')}
-    ${read('assets/i18n.js')}
-    ${read('assets/examples.js')}
-    ${read('assets/app.js')}
-    ({ I18N, CURRENCIES, EXAMPLES, CLEARJD_VERSION, FIELD_IDS, MAX_STAGES,
+    ${scripts.map(read).join('\n')}
+    ({ I18N, CURRENCIES, EXAMPLES, CLEARJD_VERSION, DOCS, FIELD_IDS, MAX_STAGES,
        collect, toMarkdown, filename, render, state, loadExample,
-       setStageCount, renderStageInputs,
-       getStages: () => stages,
+       setStageCount, renderStageInputs, activeDoc,
+       getStages: () => stageList.rows,
+       getMode: () => mode,
        setLang: l => { lang = l; applyStaticI18n(); } })
   `;
   const run = new Function(...Object.keys(sandbox), `'use strict'; return eval(${JSON.stringify(source)});`);
@@ -114,7 +114,7 @@ function fillExample(app){
  */
 function renderExample(app, id){
   app.loadExample(id);
-  return app.toMarkdown();
+  return app.activeDoc().toMarkdown();
 }
 
 module.exports = { loadApp, fillExample, renderExample, read, ROOT };
